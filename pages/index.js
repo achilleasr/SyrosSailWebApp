@@ -1,43 +1,109 @@
-import Head from 'next/head'
-import styles from '../styles/Home.module.css';
+import Head from "next/head";
+import styles from "../styles/Home.module.css";
+import React, { useState } from "react";
+import ReactDOM from "react-dom";
+import { InfluxDB, FluxTableMetaData } from "@influxdata/influxdb-client";
+import ListItem1 from "../components/List";
+//import Map from '@components/Map';
 
-import {InfluxDB, FluxTableMetaData} from '@influxdata/influxdb-client'
+export default function Home({ token, org, url }) {
+  const [points, setPoints] = useState([]);
 
-export default function Home({token, org,url}) {
-
-
-
-
-  const queryApi = new InfluxDB({url, token}).getQueryApi(org)
-  const fluxQuery = 'from(bucket:"SailData") |> range(start: -100d) |> filter(fn: (r) => r._measurement == "m1")'
+  const queryApi = new InfluxDB({ url, token }).getQueryApi(org);
+  let fluxQuery =
+    'from(bucket:"SailData") |> range(start: -100d) |> filter(fn: (r) => r._measurement == "m1")';
 
   async function collectRows() {
-    console.log('\n*** CollectRows ***')
-    const data = await queryApi.collectRows(
-      fluxQuery //, you can also specify a row mapper as a second argument
-    )
-    data.forEach((x) => console.log(JSON.stringify(x)))
-    console.log('\nCollect ROWS SUCCESS')
+    //console.log("\n*** CollectRows ***");
+    const data = await queryApi.collectRows(fluxQuery); //, you can also specify a row mapper as a second argument
+    //data.forEach((x) => console.log(JSON.stringify(x)));
+    console.log("\nCollect ROWS SUCCESS");
+    const numAscending = [...data].sort((a, b) => new Date(a._time) - new Date(b._time));
+    console.log(numAscending);
+    setPoints(numAscending);
   }
-  collectRows();
+
+  function BtnPressed() {
+    collectRows();
+  }
 
   return (
     <div className={styles.container}>
       <Head>
-        <title>Create Next App</title>
+        <title>SAIL APP</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
       <main>
         <h1 className={styles.title}>
-          LETS TRY INFLUXDB WITH <a href="/first">first.js!</a>
+          LETS TRY INFLUXDB WITH <a href="/first">next.js!</a>
         </h1>
-        <h4>token:{token + "\n org:" + org} </h4>
+
+        <div
+          className="Wrapper"
+          style={{
+            width: "100%",
+          }}
+        >
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              float: "left",
+              // border: "1px solid red",
+              width: "50%",
+            }}
+          >
+            <button onClick={BtnPressed}>GET DATA</button>
+
+            {points.map((point) => {
+              return (
+                <div
+                  style={{
+                    display: "flex",
+                    flexDirection: "column",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    width: "100%",
+                    margin: "2px",
+                    backgroundColor: "darkblue",
+                    fontSize: "10px",
+                    color: "white",
+                    borderRadius: 10,
+                    cursor: "pointer",
+                    textAlign: "center",
+                  }}
+                >
+                  <ListItem1
+                    id={point.id}
+                    val={point._value}
+                    table={point.table}
+                    start={point._start}
+                    stop={point._stop}
+                    time={point._time}
+                    field={point._field}
+                    meas={point._measurement}
+                    key={point._time + "c" + point._field}
+                  />
+                </div>
+              );
+            })}
+          </div>
+
+          <div
+            style={{
+              float: "right",
+              width: "50%",
+              textAlign: "center",
+              // border: "solid red 2px",
+            }}
+          >
+            Map
+          </div>
+        </div>
       </main>
 
-      <footer>
-        
-      </footer>
+      <footer></footer>
 
       <style jsx>{`
         main {
@@ -90,22 +156,19 @@ export default function Home({token, org,url}) {
         }
       `}</style>
     </div>
-  )
+  );
 }
 
-
-export async function getServerSideProps(){
+export async function getServerSideProps() {
   const org1 = process.env.INFLUX_ORG;
   const token1 = process.env.INFLUX_TOKEN;
   const url1 = process.env.INFLUX_URL;
 
-
   return {
     props: {
-      hello: 'world',
       org: org1,
       token: token1,
-      url: url1
-    }
-  }
+      url: url1,
+    },
+  };
 }
