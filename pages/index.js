@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import ReactDOM from "react-dom";
 import { InfluxDB, FluxTableMetaData } from "@influxdata/influxdb-client";
 import ListItem1 from "../components/List";
-//import Map from '@components/Map';
+import Map from "../components/Map";
 
 export default function Home({ token, org, url }) {
   const [points, setPoints] = useState([]);
@@ -18,7 +18,9 @@ export default function Home({ token, org, url }) {
     const data = await queryApi.collectRows(fluxQuery); //, you can also specify a row mapper as a second argument
     //data.forEach((x) => console.log(JSON.stringify(x)));
     console.log("\nCollect ROWS SUCCESS");
-    const numAscending = [...data].sort((a, b) => new Date(a._time) - new Date(b._time));
+    const numAscending = [...data].sort(
+      (a, b) => new Date(a._time) - new Date(b._time)
+    );
     console.log(numAscending);
     setPoints(numAscending);
   }
@@ -100,6 +102,7 @@ export default function Home({ token, org, url }) {
           >
             Map
           </div>
+          <Map />
         </div>
       </main>
 
