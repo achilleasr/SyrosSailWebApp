@@ -36,7 +36,7 @@ export default function Home({ token, org, url }) {
 
       <main>
         <h1 className={styles.title}>
-          LETS TRY INFLUXDB WITH <a href="/first">next.js!</a>
+          Ας δοκιμάσουμε INFLUXDB Cloud με <a href="/first">next.js!</a>
         </h1>
 
         <div
