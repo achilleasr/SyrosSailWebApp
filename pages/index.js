@@ -5,9 +5,16 @@ import ReactDOM from "react-dom";
 import { InfluxDB, FluxTableMetaData } from "@influxdata/influxdb-client";
 import ListItem1 from "../components/List";
 import Map from "../components/Map";
+import Image from 'next/image';
+
 
 export default function Home({ token, org, url }) {
   const [points, setPoints] = useState([]);
+  const [positions, setPositions] = useState([
+    { lon: 143.26488, lat: 57.51103 },
+    { lon: -144.91623, lat: -17.93533 },
+    { lon: -151.64971, lat: -49.99727 },
+  ]);
 
   const queryApi = new InfluxDB({ url, token }).getQueryApi(org);
   let fluxQuery =
@@ -100,9 +107,10 @@ export default function Home({ token, org, url }) {
               // border: "solid red 2px",
             }}
           >
+            
             Map
           </div>
-          <Map />
+          <Map items={positions} pointList= {points}/>
         </div>
       </main>
 
