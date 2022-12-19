@@ -45,8 +45,10 @@ export default function Home({ token, org, url }) {
 
       <main>
         <h1 className={styles.title}>
-          Ας δοκιμάσουμε INFLUXDB Cloud με <a href="/first">next.js!</a>
+          Ας δοκιμάσουμε INFLUXDB Cloud με next.js <a href="/first"><img className={styles.danibtn} src='d.jpg' /> </a>
         </h1>
+
+        
 
         <div
           className="Wrapper"
