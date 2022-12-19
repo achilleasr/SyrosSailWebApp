@@ -39,7 +39,7 @@ export default function Home({ token, org, url }) {
   return (
     <div className={styles.container}>
       <Head>
-        <title>SAIL APP</title>
+        <title>SAIL  APP</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
