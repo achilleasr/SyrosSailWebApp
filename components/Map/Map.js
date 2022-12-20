@@ -70,7 +70,7 @@ function Map({ pointList }) {
 
   let LeafIcon = L.Icon.extend({
     options: {
-      iconSize: [6, 6],
+      iconSize: [5, 5],
       // iconAnchor: [5,30],
     },
   });
