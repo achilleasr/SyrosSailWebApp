@@ -21,7 +21,6 @@ export default function Home({ token, org, url }) {
     'from(bucket:"SailData") |> range(start: -100d) |> filter(fn: (r) => r._measurement == "m1")';
 
   async function collectRows() {
-    //console.log("\n*** CollectRows ***");
     const data = await queryApi.collectRows(fluxQuery); //, you can also specify a row mapper as a second argument
     //data.forEach((x) => console.log(JSON.stringify(x)));
     console.log("\nCollect ROWS SUCCESS");
@@ -29,6 +28,7 @@ export default function Home({ token, org, url }) {
       (a, b) => new Date(a._time) - new Date(b._time)
     );
     console.log(numAscending);
+      
     setPoints(numAscending);
   }
 
