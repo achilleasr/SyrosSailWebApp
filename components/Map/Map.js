@@ -3,50 +3,91 @@ import style from "../../styles/Home.module.css";
 import Image from "next/image";
 import L from "leaflet";
 import { MapContainer, TileLayer, Marker, Polyline } from "react-leaflet";
-import React, { useState, useEffect } from "react";
-// import {forwardRef, useImperativeHandle, useRef} from 'react';
+import React, {
+  useState,
+  useEffect,
+  useCallback,
+  useRef,
+  forwardRef,
+} from "react";
+import "leaflet-rotatedmarker";
 
+const RotatedMarker = forwardRef(({ children, ...props }, forwardRef) => {
+  const markerRef = useRef();
+
+  const { rotationAngle, rotationOrigin } = props;
+  useEffect(() => {
+    const marker = markerRef.current;
+    if (marker) {
+      marker.setRotationAngle(rotationAngle);
+      marker.setRotationOrigin(rotationOrigin);
+    }
+  }, [rotationAngle, rotationOrigin]);
+
+  return (
+    <Marker
+      ref={(ref) => {
+        markerRef.current = ref;
+        if (forwardRef) {
+          forwardRef.current = ref;
+        }
+      }}
+      {...props}
+    >
+      {children}
+    </Marker>
+  );
+});
 
 function Map({ pointList }) {
-  //const [loc1,setLoc1] = useState([37.389571 + 0.001*Math.random(), 24.881624 + 0.001*Math.random()]);
+  const [loc1, setLoc1] = useState([37.389571, 24.881624]);
+  const [heading, setHeading] = useState(300);
+
   let poly = [];
-  if(pointList.length>0){
-    
-    pointList.forEach(point => {
+  if (pointList.length > 0) {
+    pointList.forEach((point) => {
       let r = [point.lat, point.lon];
       poly.push(r);
     });
-    console.log("calc poly list " + poly);
+    //console.log("calc poly list " + poly);
   }
 
-  // useEffect(() => {
-  //   const interval = setInterval(() => {
-  //     setLoc1([37.389571 + 0.001*Math.random(), 24.881624 + 0.001*Math.random()]);
-  //   }, 500);
+  const cbFunc = useCallback(() => {
+    setLoc1([
+      37.389471 + 0.001 * Math.sin(Date.now() * 0.001),
+      24.870624 + 0.001 * Math.cos(Date.now() * 0.001),
+    ]);
+    setHeading((heading) => heading + 5);
+  }, []);
 
-  //   return () => clearInterval(interval);
-  // }, []);
+  useEffect(() => {
+    const interval = setInterval(() => {
+      cbFunc();
+    }, 50);
+
+    return () => clearInterval(interval);
+  }, []);
 
   let LeafIcon = L.Icon.extend({
     options: {
-      iconSize: [30, 30],
-      iconAnchor: [5,30],
+      iconSize: [4, 4],
+      // iconAnchor: [5,30],
     },
   });
 
-  let customIcon = new LeafIcon({ iconUrl: "/pin1.png" });
+  let nodeIcon = new LeafIcon({ iconUrl: "/circleSVG.svg" });
 
   let LeafIcon2 = L.Icon.extend({
     options: {
       iconSize: [40, 10],
     },
   });
-  let customIcon2 = new LeafIcon2({ iconUrl: "/sailboat1tiny.png" });
+  let boatIcon1 = new LeafIcon2({ iconUrl: "/sailboat1tiny.png" });
 
-  const limeOptions = { color: 'lime' }
+  const limeOptions = { color: "lime" };
 
   return (
-    <div>
+    <center>
       <MapContainer
         className={style.map}
         center={[37.389571, 24.881624]}
@@ -58,26 +99,26 @@ function Map({ pointList }) {
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
 
+        <RotatedMarker
+          position={[loc1[0], loc1[1]]}
+          icon={boatIcon1}
+          rotationAngle={heading}
+          rotationOrigin="center"
+        ></RotatedMarker>
+
         {pointList.map((point) => {
           return (
-            <div>
+            <div key={point.time}>
               <Marker
                 position={[point.lat, point.lon]}
-                icon={customIcon}
+                icon={nodeIcon}
               ></Marker>
               <Polyline pathOptions={limeOptions} positions={poly} />
             </div>
           );
         })}
-        
-        {/* <Marker
-          position={[loc1[0],loc1[1]]}
-          icon={customIcon2}
-        ></Marker> */}
-        
       </MapContainer>
-
-    </div>
+    </center>
   );
 }
 

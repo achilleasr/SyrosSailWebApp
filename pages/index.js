@@ -1,6 +1,6 @@
 import Head from "next/head";
 import styles from "../styles/Home.module.css";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import ReactDOM from "react-dom";
 import { InfluxDB, FluxTableMetaData } from "@influxdata/influxdb-client";
 import ListItem1 from "../components/List";
@@ -11,7 +11,6 @@ import { forwardRef, useImperativeHandle, useRef } from "react";
 
 export default function Home({ token, org, url }) {
   const [points, setPoints] = useState([]);
-  const [plist, setPlist] = useState([]);
 
   const [positions, setPositions] = useState([
     { lon: 143.26488, lat: 57.51103 },
@@ -19,20 +18,27 @@ export default function Home({ token, org, url }) {
     { lon: -151.64971, lat: -49.99727 },
   ]);
 
+  const [time1, setTime1] = useState(Date.now());
+
+  useEffect(() => {
+    const interval = setInterval(() => setTime1(Date.now()), 1000);
+    return () => {
+      clearInterval(interval);
+    };
+  }, []);
+
   const queryApi = new InfluxDB({ url, token }).getQueryApi(org);
   let fluxQuery =
     'from(bucket:"SailData") |> range(start: -100d) |> filter(fn: (r) => r._measurement == "m1")';
 
   async function collectRows() {
-    const data = await queryApi.collectRows(fluxQuery); //, you can also specify a row mapper as a second argument
+    const data = await queryApi.collectRows(fluxQuery); // you can also specify a row mapper as a second argument
     //data.forEach((x) => console.log(JSON.stringify(x)));
     console.log("\nCollect ROWS SUCCESS");
     const numAscending = [...data].sort(
       (a, b) => new Date(a._time) - new Date(b._time)
     );
-    console.log(numAscending);
-
-    //setPoints(numAscending);
+    //console.log(numAscending);
 
     let p = [];
     for (let i = 0; i < numAscending.length; i += 2) {
@@ -53,9 +59,8 @@ export default function Home({ token, org, url }) {
       }
     }
 
-    console.log(p);
+    //console.log(p);
     setPoints(p);
-    //console.log(plist);
   }
 
   function BtnPressed() {
@@ -104,6 +109,7 @@ export default function Home({ token, org, url }) {
               {points.map((point) => {
                 return (
                   <div
+                    key={point.time}
                     style={{
                       display: "flex",
                       flexDirection: "column",
@@ -137,9 +143,10 @@ export default function Home({ token, org, url }) {
               textAlign: "center",
             }}
           >
-            Map
+          Map
           </div>
-          <Map pointList={points} />
+          <Map style={{align: "center"}} pointList={points} />
+
         </div>
       </main>
 
