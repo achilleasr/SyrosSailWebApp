@@ -1,8 +1,5 @@
-import "leaflet/dist/leaflet.css";
 import style from "../../styles/Home.module.css";
 import Image from "next/image";
-import L from "leaflet";
-import { MapContainer, TileLayer, Marker, Polyline } from "react-leaflet";
 import React, {
   useState,
   useEffect,
@@ -10,7 +7,48 @@ import React, {
   useRef,
   forwardRef,
 } from "react";
+import "leaflet/dist/leaflet.css";
+import L from "leaflet";
+import { MapContainer, TileLayer, Marker, Polyline } from "react-leaflet";
 import "leaflet-rotatedmarker";
+// import { LeafletTrackingMarker } from "react-leaflet-tracking-marker";
+// import AirplaneMarker from "../AirplaneMarker";
+
+// function AirplaneMarker({ data }) {
+//   const { latitude, longitude } = data
+//   const [prevPos, setPrevPos] = useState([latitude, longitude])
+
+//   useEffect(() => {
+//     if (prevPos[1] !== longitude && prevPos[0] !== latitude) setPrevPos([latitude, longitude])
+//   }, [latitude, longitude, prevPos])
+
+//   return <LeafletTrackingMarker icon={icon} position={[latitude, longitude]} previousPosition={prevPos} duration={1000} />
+// }
+
+// const dataStory = [
+//   {
+//     lat: 53.22376666666667,
+//     lng: 50.745841666666664,
+//   },
+//   {
+//     lat: 53.22376666666667,
+//     lng: 50.745841666666664,
+//   },
+//   {
+//     lat: 53.223728333333334,
+//     lng: 50.74598666666667,
+//   },
+//   {
+//     lat: 53.223705,
+//     lng: 50.746021666666664,
+//   },
+//   {
+//     lat: 53.22365166666667,
+//     lng: 50.746075,
+//   },
+// ];
+
+// let cursor = 0;
 
 const RotatedMarker = forwardRef(({ children, ...props }, forwardRef) => {
   const markerRef = useRef();
@@ -42,6 +80,25 @@ const RotatedMarker = forwardRef(({ children, ...props }, forwardRef) => {
 function Map({ pointList }) {
   const [loc1, setLoc1] = useState([37.389571, 24.881624]);
   const [heading, setHeading] = useState(300);
+
+  // const [currentTrack, setCurrentTrack] = useState({});
+  // useEffect(() => {
+  //   setCurrentTrack(dataStory[cursor]);
+
+  //   const interval = setInterval(() => {
+  //     if (cursor === dataStory.length - 1) {
+  //       cursor = 0;
+  //       setCurrentTrack(dataStory[cursor]);
+  //       return;
+  //     }
+
+  //     cursor += 1;
+  //     setCurrentTrack(dataStory[cursor]);
+  //   }, 1000);
+  //   return () => {
+  //     clearInterval(interval);
+  //   };
+  // }, []);
 
   let poly = [];
   if (pointList.length > 0) {
@@ -117,6 +174,8 @@ function Map({ pointList }) {
             </div>
           );
         })}
+
+        {/* <AirplaneMarker data={currentTrack ?? {}} /> */}
       </MapContainer>
     </center>
   );
