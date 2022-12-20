@@ -67,6 +67,10 @@ export default function Home({ token, org, url }) {
     collectRows();
   }
 
+  function BtnPressed2() {
+    collectRows();
+  }
+
   return (
     <div className={styles.container}>
       <Head>
@@ -105,6 +109,14 @@ export default function Home({ token, org, url }) {
               >
                 Route 1
               </button>
+              {/* <button
+                style={{
+                  width: "60%",
+                }}
+                onClick={BtnPressed2}
+              >
+                Route 2
+              </button> */}
 
               {points.map((point) => {
                 return (
@@ -143,10 +155,9 @@ export default function Home({ token, org, url }) {
               textAlign: "center",
             }}
           >
-          Map
+            Map
           </div>
-          <Map style={{align: "center"}} pointList={points} />
-
+          <Map style={{ align: "center" }} pointList={points} />
         </div>
       </main>
 

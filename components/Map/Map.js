@@ -75,7 +75,7 @@ function Map({ pointList }) {
     },
   });
 
-  let nodeIcon = new LeafIcon({ iconUrl: "/circleSVG.svg" });
+  let nodeIcon = new LeafIcon({ iconUrl: "/circleSmall2.png" });
 
   let LeafIcon2 = L.Icon.extend({
     options: {
