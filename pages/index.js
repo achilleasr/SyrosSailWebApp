@@ -4,12 +4,15 @@ import React, { useState } from "react";
 import ReactDOM from "react-dom";
 import { InfluxDB, FluxTableMetaData } from "@influxdata/influxdb-client";
 import ListItem1 from "../components/List";
+import ListItem2 from "../components/Point";
 import Map from "../components/Map";
-import Image from 'next/image';
-
+import Image from "next/image";
+import { forwardRef, useImperativeHandle, useRef } from "react";
 
 export default function Home({ token, org, url }) {
   const [points, setPoints] = useState([]);
+  const [plist, setPlist] = useState([]);
+
   const [positions, setPositions] = useState([
     { lon: 143.26488, lat: 57.51103 },
     { lon: -144.91623, lat: -17.93533 },
@@ -28,8 +31,31 @@ export default function Home({ token, org, url }) {
       (a, b) => new Date(a._time) - new Date(b._time)
     );
     console.log(numAscending);
-      
-    setPoints(numAscending);
+
+    //setPoints(numAscending);
+
+    let p = [];
+    for (let i = 0; i < numAscending.length; i += 2) {
+      if (numAscending[i]._field == "lon") {
+        let newp = {
+          lon: numAscending[i]._value,
+          lat: numAscending[i + 1]._value,
+          time: numAscending[i]._time,
+        };
+        p.push(newp);
+      } else {
+        let newp = {
+          lon: numAscending[i + 1]._value,
+          lat: numAscending[i]._value,
+          time: numAscending[i]._time,
+        };
+        p.push(newp);
+      }
+    }
+
+    console.log(p);
+    setPoints(p);
+    //console.log(plist);
   }
 
   function BtnPressed() {
@@ -39,16 +65,17 @@ export default function Home({ token, org, url }) {
   return (
     <div className={styles.container}>
       <Head>
-        <title>SAIL  APP</title>
+        <title>SAIL APP</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
       <main>
         <h1 className={styles.title}>
-          Ας δοκιμάσουμε INFLUXDB Cloud με next.js <a href="/first"><img className={styles.danibtn} src='d.jpg' /> </a>
+          Ας δοκιμάσουμε INFLUXDB Cloud με next.js{" "}
+          <a href="/first">
+            <img className={styles.danibtn} src="d.jpg" />{" "}
+          </a>
         </h1>
-
-        
 
         <div
           className="Wrapper"
@@ -61,44 +88,46 @@ export default function Home({ token, org, url }) {
               display: "flex",
               flexDirection: "column",
               float: "left",
-              // border: "1px solid red",
-              width: "50%",
+              width: "40%",
             }}
           >
-            <button onClick={BtnPressed}>GET DATA</button>
+            <center>
+              <button
+                style={{
+                  width: "60%",
+                }}
+                onClick={BtnPressed}
+              >
+                Route 1
+              </button>
 
-            {points.map((point) => {
-              return (
-                <div
-                  style={{
-                    display: "flex",
-                    flexDirection: "column",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    width: "100%",
-                    margin: "2px",
-                    backgroundColor: "darkblue",
-                    fontSize: "10px",
-                    color: "white",
-                    borderRadius: 10,
-                    cursor: "pointer",
-                    textAlign: "center",
-                  }}
-                >
-                  <ListItem1
-                    id={point.id}
-                    val={point._value}
-                    table={point.table}
-                    start={point._start}
-                    stop={point._stop}
-                    time={point._time}
-                    field={point._field}
-                    meas={point._measurement}
-                    key={point._time + "c" + point._field}
-                  />
-                </div>
-              );
-            })}
+              {points.map((point) => {
+                return (
+                  <div
+                    style={{
+                      display: "flex",
+                      flexDirection: "column",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      width: "60%",
+                      margin: "2px",
+                      backgroundColor: "darkred",
+                      fontSize: "10px",
+                      color: "white",
+                      borderRadius: 10,
+                      cursor: "pointer",
+                      textAlign: "center",
+                    }}
+                  >
+                    <ListItem2
+                      lon={point.lon}
+                      lat={point.lat}
+                      time={point.time}
+                    />
+                  </div>
+                );
+              })}
+            </center>
           </div>
 
           <div
@@ -106,13 +135,11 @@ export default function Home({ token, org, url }) {
               float: "right",
               width: "50%",
               textAlign: "center",
-              // border: "solid red 2px",
             }}
           >
-            
             Map
           </div>
-          <Map items={positions} pointList= {points}/>
+          <Map pointList={points} />
         </div>
       </main>
 

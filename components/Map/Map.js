@@ -2,29 +2,39 @@ import "leaflet/dist/leaflet.css";
 import style from "../../styles/Home.module.css";
 import Image from "next/image";
 import L from "leaflet";
-import { MapContainer, TileLayer, Marker } from "react-leaflet";
-import React, { useState, useEffect } from 'react';
+import { MapContainer, TileLayer, Marker, Polyline } from "react-leaflet";
+import React, { useState, useEffect } from "react";
+// import {forwardRef, useImperativeHandle, useRef} from 'react';
 
 
-function Map({ items, pointList }) {
-  const [loc1,setLoc1] = useState([10*Math.random(),10*Math.random()]);
+function Map({ pointList }) {
+  //const [loc1,setLoc1] = useState([37.389571 + 0.001*Math.random(), 24.881624 + 0.001*Math.random()]);
+  let poly = [];
+  if(pointList.length>0){
+    
+    pointList.forEach(point => {
+      let r = [point.lat, point.lon];
+      poly.push(r);
+    });
+    console.log("calc poly list " + poly);
+  }
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setLoc1([0.01*Math.random(),0.01*Math.random()]);
-    }, 500);
+  // useEffect(() => {
+  //   const interval = setInterval(() => {
+  //     setLoc1([37.389571 + 0.001*Math.random(), 24.881624 + 0.001*Math.random()]);
+  //   }, 500);
 
-    return () => clearInterval(interval);
-  }, []);
+  //   return () => clearInterval(interval);
+  // }, []);
 
   let LeafIcon = L.Icon.extend({
     options: {
       iconSize: [30, 30],
+      iconAnchor: [5,30],
     },
   });
 
   let customIcon = new LeafIcon({ iconUrl: "/pin1.png" });
-
 
   let LeafIcon2 = L.Icon.extend({
     options: {
@@ -33,9 +43,7 @@ function Map({ items, pointList }) {
   });
   let customIcon2 = new LeafIcon2({ iconUrl: "/sailboat1tiny.png" });
 
-  let pl = [];
-  pl = { pointList };
-  console.log(pl);
+  const limeOptions = { color: 'lime' }
 
   return (
     <div>
@@ -50,22 +58,25 @@ function Map({ items, pointList }) {
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
 
-        {items.map((point) => {
+        {pointList.map((point) => {
           return (
             <div>
-              <Marker position={[point.lat, point.lon]} icon={customIcon}>
-              </Marker>
-              <div>a {point.lat + "  " + point.lon}</div>
+              <Marker
+                position={[point.lat, point.lon]}
+                icon={customIcon}
+              ></Marker>
+              <Polyline pathOptions={limeOptions} positions={poly} />
             </div>
           );
         })}
         
-        <Marker position={[37.389571 + loc1[0], 24.881624 + loc1[1]]} icon={customIcon2}>
-              </Marker>
+        {/* <Marker
+          position={[loc1[0],loc1[1]]}
+          icon={customIcon2}
+        ></Marker> */}
         
       </MapContainer>
-      {/* <p>location: {loc1[0] + "\n" + loc1[1]}
-  </p> */}
+
     </div>
   );
 }
