@@ -11,6 +11,7 @@ import { forwardRef, useImperativeHandle, useRef } from "react";
 
 export default function Home({ token, org, url }) {
   const [points, setPoints] = useState([]);
+  const [play,setPlay] = useState(false);
 
   const [positions, setPositions] = useState([
     { lon: 143.26488, lat: 57.51103 },
@@ -18,14 +19,6 @@ export default function Home({ token, org, url }) {
     { lon: -151.64971, lat: -49.99727 },
   ]);
 
-  const [time1, setTime1] = useState(Date.now());
-
-  useEffect(() => {
-    const interval = setInterval(() => setTime1(Date.now()), 1000);
-    return () => {
-      clearInterval(interval);
-    };
-  }, []);
 
   const queryApi = new InfluxDB({ url, token }).getQueryApi(org);
   let fluxQuery =
@@ -65,6 +58,7 @@ export default function Home({ token, org, url }) {
 
   function BtnPressed() {
     collectRows();
+    setPlay(true);
   }
 
   function BtnPressed2() {
@@ -157,7 +151,7 @@ export default function Home({ token, org, url }) {
           >
             Map
           </div>
-          <Map style={{ align: "center" }} pointList={points} />
+          <Map style={{ align: "center" }} pointList={points} play={play}/>
         </div>
       </main>
 
