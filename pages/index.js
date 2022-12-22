@@ -6,12 +6,14 @@ import { InfluxDB, FluxTableMetaData } from "@influxdata/influxdb-client";
 import ListItem1 from "../components/List";
 import ListItem2 from "../components/Point";
 import Map from "../components/Map";
+import Map2 from "../components/Map2";
 import Image from "next/image";
 import { forwardRef, useImperativeHandle, useRef } from "react";
 
-export default function Home({ token, org, url }) {
+
+export default function Home({ token, org, url , api}) {
   const [points, setPoints] = useState([]);
-  const [play,setPlay] = useState(false);
+  const [play, setPlay] = useState(false);
 
   const [positions, setPositions] = useState([
     { lon: 143.26488, lat: 57.51103 },
@@ -19,6 +21,16 @@ export default function Home({ token, org, url }) {
     { lon: -151.64971, lat: -49.99727 },
   ]);
 
+  const [isSubscribed, setIsSubscribed] = useState(false);
+
+  const handleChange = event => {
+    if (event.target.checked) {
+      console.log('✅ Checkbox is checked');
+    } else {
+      console.log('⛔️ Checkbox is NOT checked');
+    }
+    setIsSubscribed(current => !current);
+  };
 
   const queryApi = new InfluxDB({ url, token }).getQueryApi(org);
   let fluxQuery =
@@ -80,6 +92,13 @@ export default function Home({ token, org, url }) {
           </a>
         </h1>
 
+        <h3>3D <input type="checkbox" id="myCheck" onChange={handleChange}/> </h3> 
+        {isSubscribed == true && (
+
+          <Map2 api={api} pointList={points}/>
+
+        ) }
+        
         <div
           className="Wrapper"
           style={{
@@ -151,7 +170,7 @@ export default function Home({ token, org, url }) {
           >
             Map
           </div>
-          <Map style={{ align: "center" }} pointList={points} play={play}/>
+          <Map style={{ align: "center" }} pointList={points} play={play} />
         </div>
       </main>
 
@@ -215,12 +234,14 @@ export async function getServerSideProps() {
   const org1 = process.env.INFLUX_ORG;
   const token1 = process.env.INFLUX_TOKEN;
   const url1 = process.env.INFLUX_URL;
+  const api1 = process.env.WRLD_TOKEN;
 
   return {
     props: {
       org: org1,
       token: token1,
       url: url1,
+      api: api1,
     },
   };
 }

@@ -70,7 +70,7 @@ function Map({ pointList, play }) {
   }
 
   //console.log(Math.floor(ler2/101));
-  console.log(play);
+  //console.log(play);
   let cbFunc = useCallback(() => {
     setLoc1([
       37.389471 + 0.001 * Math.sin(Date.now() * 0.001),
