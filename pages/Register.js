@@ -9,7 +9,7 @@ export default function Register() {
       <Head>
         <title>SAIL APP</title>
       </Head>
-      <div className={styles.title}>I am a: {name}</div>
+      <div className={styles.title}>I am a: </div>
 
       <div className={styles.buttonsWrapper}>
         <div className={styles.buttone}>
