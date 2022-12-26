@@ -15,7 +15,7 @@ export default function Register() {
         <div className={styles.buttone}>
           <Link
             href={{
-              pathname: "/Register2",
+              pathname: "/register2",
               query: { name: "Coach" },
             }}
           >
@@ -26,7 +26,7 @@ export default function Register() {
         <div className={styles.buttone}>
           <Link
             href={{
-              pathname: "/Register2",
+              pathname: "/register2",
               query: { name: "Sailor" },
             }}
           >
@@ -37,7 +37,7 @@ export default function Register() {
         <div className={styles.buttone}>
           <Link
             href={{
-              pathname: "/Register2",
+              pathname: "/register2",
               query: { name: "guest" },
               state: { nooma: "pin" },
             }}

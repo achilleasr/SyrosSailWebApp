@@ -11,7 +11,7 @@ export default function LoadingScreen() {
         <title>SAIL APP</title>
       </Head>
       <div className="image">
-        <Link href="/Register">
+        <Link href="/register">
           <img src="SplashLogo.png" />
         </Link>
       </div>

@@ -21,7 +21,7 @@ export default function Register2() {
       <img src="SplashLogo.png" className="image" />
       <div className={styles.title}>New {name} Account</div>
 
-      <form action="/Menu" onSubmit={submitContact}>
+      <form action="/menu" onSubmit={submitContact}>
         <input
           type="text"
           id="username"

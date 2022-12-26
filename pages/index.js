@@ -12,7 +12,7 @@ export default function App() {
         <img src="SplashLogo.png" className="image" />
         <div className={styles.title}>Login</div>
 
-        <form action="/Menu" method="post">
+        <form action="/menu" method="post">
           <input
             type="text"
             id="username"
@@ -33,12 +33,12 @@ export default function App() {
         </form>
         {/* <div className={styles.registerWrapper}> */}
           <div className={styles.noAccount}>Don't have an account?</div>
-          <form action="/LoadingScreen" method="post">
-          <button className={styles.button} action="/Menu">Register</button>
+          <form action="/loadingscreen" method="post">
+          <button className={styles.button}>Register</button>
           </form>
         {/* </div> */}
         <footer className={styles.footer}>
-        <Link href="/Debug">d</Link>
+        <Link href="/debug">d</Link>
         </footer>
         <style jsx>
           {`
