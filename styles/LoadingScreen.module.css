@@ -1,0 +1,15 @@
+@font-face {
+    font-family: "ConcertOne";
+    src: url("/fonts/ConcertOne-Regular.ttf");
+  }
+  
+  .title {
+    font-size: 55px;
+    margin: 8%;
+    font-family: ConcertOne;
+    color: white;
+    text-shadow: 2px 2px 3px rgb(22, 22, 22);
+  }
+  
+  
+  

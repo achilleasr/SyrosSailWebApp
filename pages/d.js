@@ -1,6 +1,6 @@
 import React from "react";
 import { Unity, useUnityContext } from "react-unity-webgl";
-import styles from "../styles/Home.module.css";
+import styles from "../styles/First.module.css";
 
 export default function First() {
   const { unityProvider } = useUnityContext({

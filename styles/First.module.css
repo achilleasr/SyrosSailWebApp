@@ -46,3 +46,39 @@
 .bg{
   background-color: black;
 }
+
+
+
+/* 
+
+@font-face {
+  font-family: "ConcertOne";
+  src: url("/fonts/ConcertOne-Regular.ttf");
+}
+
+.title {
+  font-size: 55px;
+  margin: 3%;
+  font-family: ConcertOne;
+  color: white;
+}
+
+
+.button {
+  border: 0px;
+  margin: 6px;
+  height: 3rem;
+  text-align: center;
+  border-radius: 100px;
+  font-family: ConcertOne;
+  color: white;
+  background: linear-gradient(
+    0deg,
+    rgba(0, 0, 128, 1) 0%,
+    rgba(23, 0, 83, 0.8) 100%
+  );
+}
+
+.button::placeholder { 
+  font-family: ConcertOne;
+} */

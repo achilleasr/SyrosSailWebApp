@@ -1,4 +1,4 @@
-import style from "../../styles/Home.module.css";
+import style from "../../styles/First.module.css";
 import Image from "next/image";
 import React, {
   useState,
