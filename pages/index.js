@@ -5,11 +5,11 @@ import Link from "next/link";
 
 export default function App() {
   return (
-    <div className="wrapper">
+    <div className={styles.wrapper}>
       <Head>
         <title>SAIL APP</title>
       </Head>
-      <img src="SplashLogo.png" className="image" />
+      <img src="SplashLogo.png" className={styles.image} />
       <div className={styles.title}>Login</div>
 
       <form action="/menu" method="post">
@@ -47,29 +47,6 @@ export default function App() {
       <footer className={styles.footer}>
         <Link href="/debug">d</Link>
       </footer>
-      <style jsx>
-        {`
-          .wrapper {
-            display: flex;
-            text-align: center;
-            flex-direction: column;
-            padding: 0 0.5rem;
-            justify-content: center;
-            align-items: center;
-          }
-
-          .login {
-            margin-top: 26px;
-            margin-bottom: 40px;
-          }
-
-          .image {
-            margin-top: 4%;
-            height: 160px;
-            filter: drop-shadow(3px 3px 5px #747474);
-          }
-        `}
-      </style>
 
       <style jsx global>{`
         html {
