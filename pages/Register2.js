@@ -60,7 +60,7 @@ export default function Register2() {
           }
 
           .image {
-            margin-top: 6%;
+            margin-top: 5rem;
             height: 160px;
             filter: drop-shadow(3px 3px 5px #747474);
           }
@@ -92,7 +92,7 @@ export default function Register2() {
           padding: 10px;
           padding-left: 17px;
           border: 0px;
-          margin: 5px;
+          margin: 6px;
           height: 2rem;
           border-radius: 100px;
           font-size: 1.1rem;

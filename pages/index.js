@@ -41,7 +41,7 @@ export default function App() {
           <button className={styles.button}>Register</button>
           </form> */}
         <div className={styles.button}>
-          <Link href="/loadingscreen">Register</Link>
+          <Link href="/register">Register</Link>
         </div>
       </div>
       <footer className={styles.footer}>
@@ -64,7 +64,7 @@ export default function App() {
           }
 
           .image {
-            margin-top: 6%;
+            margin-top: 4%;
             height: 160px;
             filter: drop-shadow(3px 3px 5px #747474);
           }
