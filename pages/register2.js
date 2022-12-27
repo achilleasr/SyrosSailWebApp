@@ -30,14 +30,14 @@ export default function Register2() {
           required
         />
         <input
-          type="text"
+          type="password"
           id="password"
           name="password"
           placeholder="Password"
           required
         />
         <input
-          type="text"
+          type="email"
           id="mail"
           name="mail"
           placeholder="YourEmail@gmail.com"
