@@ -1,12 +1,12 @@
-@font-face {
+/* @font-face {
   font-family: "ConcertOne";
   src: url("/fonts/ConcertOne-Regular.ttf");
-}
+} */
+
 
 .title {
   font-size: 55px;
   margin: 2%;
-  font-family: ConcertOne;
   color: white;
   text-shadow: 2px 2px 3px rgb(22, 22, 22);
 }
@@ -41,7 +41,7 @@
   text-align: center;
   font-size: 28px;
   border-radius: 100px;
-  font-family: ConcertOne;
+  font-family: "Concert One";
   color: white;
   background: linear-gradient(347deg, var(--myColor1) 0%, var(--myColor2) 100%);
   box-shadow: 0 0 15px 4px rgba(0, 0, 0, 0.16);
@@ -104,7 +104,7 @@ position: fixed;
 
 .input1{
     color: black;
-    font-family: ConcertOne;
+    font-family: "Concert One";
     /* padding: 0px; */
     padding-left: 20px;
     border: 0px;
@@ -117,13 +117,13 @@ position: fixed;
 }
 
 .input1::placeholder {
-  font-family: ConcertOne;
+  font-family: "Concert One";
   font-size: 24px;
 }
 
 .input2 {
   color: black;
-  font-family: ConcertOne;
+  font-family: "Concert One";
   /* padding: 0px; */
   padding-left: 20px;
   border: 0px;

@@ -6,6 +6,7 @@
     "start": "next start"
   },
   "dependencies": {
+    "@fontsource/concert-one": "^4.5.9",
     "@influxdata/influxdb-client": "^1.33.0",
     "@influxdata/influxdb-client-apis": "^1.33.0",
     "@next/font": "^13.1.1",

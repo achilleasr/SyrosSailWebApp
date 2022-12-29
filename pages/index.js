@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import Head from "next/head";
+import "@fontsource/concert-one";
 import styles from "../styles/Index.module.css";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -82,6 +83,7 @@ export default function App() {
       <style jsx global>{`
         html {
           height: 100%;
+          font-family: "Concert One";
         }
         body {
           height: 100%;
@@ -91,7 +93,7 @@ export default function App() {
             rgba(0, 212, 255, 1) 100%
           );
           background-attachment: fixed;
-          font-family: ConcertOne;
+          font-family: "Concert One";
         }
         form {
           display: flex;
