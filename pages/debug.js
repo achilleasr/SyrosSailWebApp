@@ -10,10 +10,12 @@ import Map from "../components/Map";
 import Image from "next/image";
 import { forwardRef, useImperativeHandle, useRef } from "react";
 
+import { useRouter } from "next/navigation";
 
-export default function Home({ token, org, url , api}) {
+export default function Home({ token, org, url, api }) {
   const [points, setPoints] = useState([]);
   const [play, setPlay] = useState(false);
+  const router = useRouter();
 
   const [positions, setPositions] = useState([
     { lon: 143.26488, lat: 57.51103 },
@@ -23,13 +25,13 @@ export default function Home({ token, org, url , api}) {
 
   const [isSubscribed, setIsSubscribed] = useState(false);
 
-  const handleChange = event => {
+  const handleChange = (event) => {
     if (event.target.checked) {
-      console.log('✅ Checkbox is checked');
+      console.log("✅ Checkbox is checked");
     } else {
-      console.log('⛔️ Checkbox is NOT checked');
+      console.log("⛔️ Checkbox is NOT checked");
     }
-    setIsSubscribed(current => !current);
+    setIsSubscribed((current) => !current);
   };
 
   const queryApi = new InfluxDB({ url, token }).getQueryApi(org);
@@ -77,6 +79,17 @@ export default function Home({ token, org, url , api}) {
     collectRows();
   }
 
+  const handleClick = (e) => {
+    e.preventDefault();
+    router.push(
+      {
+        pathname: '/nextpage',
+        query: { noom: "NOOMMMM" },
+      },
+      '/nextpage'
+    );
+  };
+
   return (
     <div className={styles.container}>
       <Head>
@@ -86,12 +99,17 @@ export default function Home({ token, org, url , api}) {
 
       <main>
         <h1 className={styles.title}>
-          Ας δοκιμάσουμε INFLUXDB Cloud με next.js
+          INFLUXDB Cloud με next.js
           <a href="/d">
             <img className={styles.danibtn} src="d.jpg" />
           </a>
         </h1>
-{/* 
+
+        <a href="/nextpage"> NNNNNN </a>
+        <button type="button" onClick={handleClick}>
+          NextPage
+        </button>
+        {/* 
         <h3>3D <input type="checkbox" id="myCheck" onChange={handleChange}/> </h3> 
         {isSubscribed == true && (
 
