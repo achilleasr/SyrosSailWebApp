@@ -5,14 +5,14 @@
 
 
 .title {
-  font-size: 55px;
+  font-size: 45px;
   margin: 2%;
   color: white;
   text-shadow: 2px 2px 3px rgb(22, 22, 22);
 }
 
 .title2 {
-  font-size: 55px;
+  font-size: 45px;
   margin: 2%;
   font-family: Arial;
   color: white;
@@ -48,7 +48,6 @@
   transition: font-size 0.1s ease-out 100ms, --myColor1 0.2s, --myColor2 0.2s;
 }
 
-
 .button:hover {
   font-size: 30px;
   cursor: pointer;
@@ -56,24 +55,46 @@
   --myColor2: rgba(30, 82, 164, 1);
 }
 
+.button2 {
+  border: 0px;
+  margin: 6px;
+  height: 3rem;
+  text-align: center;
+  font-size: 26px;
+  border-radius: 100px;
+  font-family: Arial;
+  color: white;
+  background: linear-gradient(347deg, var(--myColor1) 0%, var(--myColor2) 100%);
+  box-shadow: 0 0 15px 4px rgba(0, 0, 0, 0.16);
+  transition: font-size 0.1s ease-out 100ms, --myColor1 0.2s, --myColor2 0.2s;
+}
+
+.button2:hover {
+  font-size: 30px;
+  cursor: pointer;
+  --myColor1: rgba(28, 28, 169, 1);
+  --myColor2: rgba(30, 82, 164, 1);
+}
+
+
+
 .footer {
   position: fixed;
-  bottom: 0;
-  width: 98%;
+  bottom: 10px;
+  right: 10px;
   color: white;
-  text-align: right;
 }
 
 .registerWrapper {
   width: 60%;
-  margin-top: 2rem;
+  margin-top: 0.2rem;
   display: flex;
   flex-direction: column;
 }
 
 .noAccount {
-  font-size: 20px;
-  margin-top: 1.1rem;
+  font-size: 18px;
+  margin-top: 0.4rem;
 }
 
 
@@ -88,37 +109,50 @@
 
 .image {
   margin-top: 4%;
-  height: 160px;
+  height: 120px;
+  width: 120px;
   filter: drop-shadow(3px 3px 5px #747474);
 }
 
 .checkbox {
-height: 40px;
-width: 40px;
-border: white solid 1px;
-position: fixed;
+  height: 40px;
+  width: 40px;
+  border: white solid 1px;
+  position: fixed;
   top: 2rem;
   left: 2rem;
 }
 
 
-.input1{
-    color: black;
-    font-family: "Concert One";
-    /* padding: 0px; */
-    padding-left: 20px;
-    border: 0px;
-    margin: 5px;
-    height: 3rem;
-    border-radius: 100px;
-    font-size: 24px;
-    box-shadow: 0 0 15px 4px rgba(0, 0, 0, 0.16);
-  
+.input1 {
+  color: black;
+  font-family: "Concert One";
+  /* padding: 0px; */
+  /* padding-left: 20px; */
+  border: 0px;
+  margin: 5px;
+  height: 0.2rem;
+  padding: 1.3rem;
+  /* vertical-align: middle; */
+  /* vertical-align: text-top; */
+  /* line-height: 3rem; */
+  border-radius: 100px;
+  font-size: 24px;
+  box-shadow: 0 0 15px 4px rgba(0, 0, 0, 0.16);
+  /* border: #747474 solid 3px; */
+
 }
 
 .input1::placeholder {
   font-family: "Concert One";
-  font-size: 24px;
+  font-size: 19px;
+  transform: translate(0,-3px);
+  /* height: 3rem; */
+  /* margin: auto; */
+  /* width:80%; */
+  /* vertical-align: bottom; */
+  /* padding: 0px; */
+  /* border: #747474 solid 3px; */
 }
 
 .input2 {
@@ -133,7 +167,9 @@ position: fixed;
   font-size: 24px;
   box-shadow: 0 0 15px 4px rgba(0, 0, 0, 0.16);
 }
+
 .input2::placeholder {
   font-family: Arial;
-  font-size: 24px;
+  font-size: 19px;
+  vertical-align: middle;
 }

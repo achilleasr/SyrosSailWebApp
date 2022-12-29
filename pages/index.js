@@ -50,7 +50,7 @@ export default function App() {
           Log In
         </button> */}
         <button
-          className={styles.button}
+          className={checked ? styles.button2 : styles.button}
           type="button"
           onClick={() => router.push("/menu")}
         >
@@ -69,7 +69,7 @@ export default function App() {
           <Link href="/register">Register</Link>
         </div> */}
         <button
-          className={styles.button}
+          className={checked ? styles.button2 : styles.button}
           type="button"
           onClick={() => router.push("/register")}
         >
