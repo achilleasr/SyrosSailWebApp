@@ -47,6 +47,7 @@
 
 .button:hover {
   font-size: 30px;
+  cursor: pointer;
   --myColor1: rgba(28, 28, 169, 1);
   --myColor2: rgba(30, 82, 164, 1);
 }

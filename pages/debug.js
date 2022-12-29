@@ -9,7 +9,6 @@ import Map from "../components/Map";
 // import Map2 from "../components/Map2";
 import Image from "next/image";
 import { forwardRef, useImperativeHandle, useRef } from "react";
-
 import { useRouter } from "next/navigation";
 
 export default function Home({ token, org, url, api }) {

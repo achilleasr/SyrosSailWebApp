@@ -2,8 +2,10 @@ import React from "react";
 import Head from "next/head";
 import styles from "../styles/Index.module.css";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 export default function App() {
+  const router = useRouter();
   return (
     <div className={styles.wrapper}>
       <Head>
@@ -30,19 +32,20 @@ export default function App() {
         {/* <button type="submit" className={styles.button}>
           Log In
         </button> */}
-
-        <div className={styles.button}>
+        <button className={styles.button} type="button" onClick={() => router.push("/menu")}>Log In</button>
+        {/* <div className={styles.button}>
           <Link href="/menu">Log In</Link>
-        </div>
+        </div> */}
       </form>
       <div className={styles.registerWrapper}>
         <div className={styles.noAccount}>Don't have an account?</div>
         {/* <form action="/loadingscreen" method="post">
           <button className={styles.button}>Register</button>
           </form> */}
-        <div className={styles.button}>
+        {/* <div className={styles.button}>
           <Link href="/register">Register</Link>
-        </div>
+        </div> */}
+        <button className={styles.button} type="button" onClick={() => router.push("/register")}>Register</button>
       </div>
       <footer className={styles.footer}>
         <Link href="/debug">d</Link>
@@ -70,11 +73,11 @@ export default function App() {
         input {
           color: black;
           font-family: ConcertOne;
-          padding: 10px;
+          // padding: 0px;
           padding-left: 20px;
           border: 0px;
           margin: 5px;
-          height: 2rem;
+          height: 3rem;
           border-radius: 100px;
           font-size: 24px;
           box-shadow: 0 0 15px 4px rgba(0, 0, 0, 0.16);
