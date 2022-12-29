@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Head from "next/head";
 import styles from "../styles/Index.module.css";
 import Link from "next/link";
@@ -6,13 +6,27 @@ import { useRouter } from "next/navigation";
 
 export default function App() {
   const router = useRouter();
+  const [checked, setChecked] = useState(false);
+  const handleClick = () => {
+    setChecked(!checked);
+  };
+
+  console.log(checked);
+
   return (
     <div className={styles.wrapper}>
       <Head>
         <title>SAIL APP</title>
       </Head>
       <img src="SplashLogo.png" className={styles.image} />
-      <div className={styles.title}>Login</div>
+      <div className={checked ? styles.title2 : styles.title}>Login</div>
+      <input
+        onClick={handleClick}
+        name="fontBox"
+        type="checkbox"
+        id="fontBox"
+        className={styles.checkbox}
+      />
 
       <form action="/menu" method="post">
         <input
@@ -20,6 +34,7 @@ export default function App() {
           id="username"
           name="username"
           placeholder="Username"
+          className={checked ? styles.input2 : styles.input1}
           required
         />
         <input
@@ -27,12 +42,19 @@ export default function App() {
           id="password"
           name="password"
           placeholder="Password"
+          className={checked ? styles.input2 : styles.input1}
           required
         />
         {/* <button type="submit" className={styles.button}>
           Log In
         </button> */}
-        <button className={styles.button} type="button" onClick={() => router.push("/menu")}>Log In</button>
+        <button
+          className={styles.button}
+          type="button"
+          onClick={() => router.push("/menu")}
+        >
+          Log In
+        </button>
         {/* <div className={styles.button}>
           <Link href="/menu">Log In</Link>
         </div> */}
@@ -45,7 +67,13 @@ export default function App() {
         {/* <div className={styles.button}>
           <Link href="/register">Register</Link>
         </div> */}
-        <button className={styles.button} type="button" onClick={() => router.push("/register")}>Register</button>
+        <button
+          className={styles.button}
+          type="button"
+          onClick={() => router.push("/register")}
+        >
+          Register
+        </button>
       </div>
       <footer className={styles.footer}>
         <Link href="/debug">d</Link>
@@ -69,22 +97,6 @@ export default function App() {
           display: flex;
           width: 60%;
           flex-direction: column;
-        }
-        input {
-          color: black;
-          font-family: ConcertOne;
-          // padding: 0px;
-          padding-left: 20px;
-          border: 0px;
-          margin: 5px;
-          height: 3rem;
-          border-radius: 100px;
-          font-size: 24px;
-          box-shadow: 0 0 15px 4px rgba(0, 0, 0, 0.16);
-        }
-        input::placeholder {
-          font-family: ConcertOne;
-          font-size: 24px;
         }
 
         input:hover {

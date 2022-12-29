@@ -11,6 +11,14 @@
   text-shadow: 2px 2px 3px rgb(22, 22, 22);
 }
 
+.title2 {
+  font-size: 55px;
+  margin: 2%;
+  font-family: Arial;
+  color: white;
+  text-shadow: 2px 2px 3px rgb(22, 22, 22);
+}
+
 
 
 @property --myColor1 {
@@ -38,10 +46,6 @@
   background: linear-gradient(347deg, var(--myColor1) 0%, var(--myColor2) 100%);
   box-shadow: 0 0 15px 4px rgba(0, 0, 0, 0.16);
   transition: font-size 0.1s ease-out 100ms, --myColor1 0.2s, --myColor2 0.2s;
-}
-
-.button::placeholder {
-  font-family: ConcertOne;
 }
 
 
@@ -88,5 +92,48 @@
   filter: drop-shadow(3px 3px 5px #747474);
 }
 
+.checkbox {
+height: 40px;
+width: 40px;
+border: white solid 1px;
+position: fixed;
+  top: 2rem;
+  left: 2rem;
+}
 
 
+.input1{
+    color: black;
+    font-family: ConcertOne;
+    /* padding: 0px; */
+    padding-left: 20px;
+    border: 0px;
+    margin: 5px;
+    height: 3rem;
+    border-radius: 100px;
+    font-size: 24px;
+    box-shadow: 0 0 15px 4px rgba(0, 0, 0, 0.16);
+  
+}
+
+.input1::placeholder {
+  font-family: ConcertOne;
+  font-size: 24px;
+}
+
+.input2 {
+  color: black;
+  font-family: ConcertOne;
+  /* padding: 0px; */
+  padding-left: 20px;
+  border: 0px;
+  margin: 5px;
+  height: 3rem;
+  border-radius: 100px;
+  font-size: 24px;
+  box-shadow: 0 0 15px 4px rgba(0, 0, 0, 0.16);
+}
+.input2::placeholder {
+  font-family: Arial;
+  font-size: 24px;
+}
