@@ -102,7 +102,7 @@
 
 .registerWrapper {
   width: 60%;
-  margin-top: 0.2rem;
+  margin-top: 1.2rem;
   display: flex;
   flex-direction: column;
 }
@@ -124,7 +124,7 @@
 }
 
 .image {
-  margin-top: 4%;
+  margin-top: 10%;
   height: 120px;
   width: 120px;
   filter: drop-shadow(3px 3px 5px #747474);

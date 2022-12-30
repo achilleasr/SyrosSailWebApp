@@ -11,14 +11,14 @@ const submitContact = async (event) => {
 export default function Register2() {
   let router = useRouter();
   let name = router.query["name"];
-
+  
 
   return (
-    <div className="wrapper">
+    <div className={styles.wrapper}>
       <Head>
         <title>SAIL APP</title>
       </Head>
-      <img src="SplashLogo.png" className="image" />
+      <img src="SplashLogo.png" className={styles.image} />
       <div className={styles.title}>New {name} Account</div>
 
       <form action="/menu" onSubmit={submitContact}>
@@ -48,24 +48,7 @@ export default function Register2() {
         </button>
       </form>
 
-      <style jsx>
-        {`
-          .wrapper {
-            display: flex;
-            text-align: center;
-            flex-direction: column;
-            padding: 0 0.5rem;
-            justify-content: center;
-            align-items: center;
-          }
 
-          .image {
-            margin-top: 5rem;
-            height: 160px;
-            filter: drop-shadow(3px 3px 5px #747474);
-          }
-        `}
-      </style>
 
       <style jsx global>{`
         html {
@@ -73,11 +56,7 @@ export default function Register2() {
         }
         body {
           height: 100%;
-          background: linear-gradient(
-            0deg,
-            rgba(40, 151, 222, 1) 0%,
-            rgba(0, 212, 255, 1) 100%
-          );
+          background: #09A1C8;
           background-attachment: fixed;
           font-family: Concert One;
         }

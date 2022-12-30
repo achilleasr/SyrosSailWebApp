@@ -40,9 +40,9 @@ export default function Register() {
               pathname: "/register2",
               query: { name: "Viewer" },
               state: { nooma: "pin" },
-            }}
+            }}  
           >
-            Viewer
+            VIEWER
           </Link>
         </div>
       </div>

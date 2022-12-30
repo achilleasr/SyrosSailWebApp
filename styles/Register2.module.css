@@ -20,6 +20,7 @@
   font-family: "Concert One";
   color: white;
   /* text-shadow: 2px 2px 3px rgb(22, 22, 22); */
+  /* text-shadow: 0 0 10px rgba(255, 255, 255, 0.501); */
 }
 
 @property --myColor1 {
@@ -78,4 +79,19 @@
 
 .noAccount {
   font-size: 1.1rem;
+}
+
+.wrapper {
+  display: flex;
+  text-align: center;
+  flex-direction: column;
+  padding: 0 0.5rem;
+  justify-content: center;
+  align-items: center;
+}
+
+.image {
+  margin-top: 5rem;
+  height: 160px;
+  filter: drop-shadow(3px 3px 5px #ffffff73);
 }
