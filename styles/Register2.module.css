@@ -19,7 +19,7 @@
   margin: 16px;
   font-family: "Concert One";
   color: white;
-  text-shadow: 2px 2px 3px rgb(22, 22, 22);
+  /* text-shadow: 2px 2px 3px rgb(22, 22, 22); */
 }
 
 @property --myColor1 {
@@ -46,7 +46,7 @@
   font-family: "Concert One";
   color: white;
   background: linear-gradient(347deg, var(--myColor1) 0%, var(--myColor2) 100%);
-  box-shadow: 0 0 15px 4px rgba(0, 0, 0, 0.16);
+  /* box-shadow: 0 0 15px 4px rgba(0, 0, 0, 0.16); */
   transition: font-size 0.1s ease-out 100ms, --myColor1 0.2s, --myColor2 0.2s;
 }
 

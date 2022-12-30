@@ -19,7 +19,7 @@
   font-size: 45px;
   margin: 2%;
   color: white;
-  text-shadow: 2px 2px 3px rgb(22, 22, 22);
+  /* text-shadow: 2px 2px 3px rgb(22, 22, 22); */
 }
 
 .title2 {
@@ -27,7 +27,7 @@
   margin: 2%;
   font-family: Arial;
   color: white;
-  text-shadow: 2px 2px 3px rgb(22, 22, 22);
+  /* text-shadow: 2px 2px 3px rgb(22, 22, 22); */
 }
 
 
@@ -53,9 +53,11 @@
   font-size: 28px;
   border-radius: 100px;
   font-family: "Concert One";
+  background: #FF8753;
+  /* background: linear-gradient(347deg, var(--myColor1) 0%, var(--myColor2) 100%); */
+  /* box-shadow: 0 0 15px 4px rgba(0, 0, 0, 0.16); */
+  box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25);
   color: white;
-  background: linear-gradient(347deg, var(--myColor1) 0%, var(--myColor2) 100%);
-  box-shadow: 0 0 15px 4px rgba(0, 0, 0, 0.16);
   transition: font-size 0.1s ease-out 100ms, --myColor1 0.2s, --myColor2 0.2s;
 }
 
@@ -74,9 +76,11 @@
   font-size: 26px;
   border-radius: 100px;
   font-family: Arial;
+  background: #FF8753;
+  box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25);
   color: white;
-  background: linear-gradient(347deg, var(--myColor1) 0%, var(--myColor2) 100%);
-  box-shadow: 0 0 15px 4px rgba(0, 0, 0, 0.16);
+  /* background: linear-gradient(347deg, var(--myColor1) 0%, var(--myColor2) 100%); */
+  /* box-shadow: 0 0 15px 4px rgba(0, 0, 0, 0.16); */
   transition: font-size 0.1s ease-out 100ms, --myColor1 0.2s, --myColor2 0.2s;
 }
 
@@ -106,6 +110,7 @@
 .noAccount {
   font-size: 18px;
   margin-top: 0.4rem;
+  color: white;
 }
 
 
@@ -149,7 +154,7 @@
   /* line-height: 3rem; */
   border-radius: 100px;
   font-size: 24px;
-  box-shadow: 0 0 15px 4px rgba(0, 0, 0, 0.16);
+  /* box-shadow: 0 0 15px 4px rgba(0, 0, 0, 0.16); */
   /* border: #747474 solid 3px; */
 
 }
@@ -176,7 +181,7 @@
   height: 3rem;
   border-radius: 100px;
   font-size: 24px;
-  box-shadow: 0 0 15px 4px rgba(0, 0, 0, 0.16);
+  /* box-shadow: 0 0 15px 4px rgba(0, 0, 0, 0.16); */
 }
 
 .input2::placeholder {

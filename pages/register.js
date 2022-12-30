@@ -38,11 +38,11 @@ export default function Register() {
           <Link
             href={{
               pathname: "/register2",
-              query: { name: "guest" },
+              query: { name: "Viewer" },
               state: { nooma: "pin" },
             }}
           >
-            GUEST
+            Viewer
           </Link>
         </div>
       </div>

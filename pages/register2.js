@@ -79,7 +79,7 @@ export default function Register2() {
             rgba(0, 212, 255, 1) 100%
           );
           background-attachment: fixed;
-          font-family: ConcertOne;
+          font-family: Concert One;
         }
         form {
           display: flex;
@@ -88,7 +88,7 @@ export default function Register2() {
         }
         input {
           color: black;
-          font-family: ConcertOne;
+          font-family: Concert One;
           padding: 10px;
           padding-left: 17px;
           border: 0px;
@@ -96,10 +96,10 @@ export default function Register2() {
           height: 2rem;
           border-radius: 100px;
           font-size: 1.1rem;
-          box-shadow: 0 0 15px 4px rgba(0, 0, 0, 0.16);
+          // box-shadow: 0 0 15px 4px rgba(0, 0, 0, 0.16);
         }
         input::placeholder {
-          font-family: ConcertOne;
+          font-family: Concert One;
         }
 
         input:hover {

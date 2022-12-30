@@ -87,11 +87,7 @@ export default function App() {
         }
         body {
           height: 100%;
-          background: linear-gradient(
-            0deg,
-            rgba(40, 151, 222, 1) 0%,
-            rgba(0, 212, 255, 1) 100%
-          );
+          background: #09A1C8;
           background-attachment: fixed;
           font-family: "Concert One";
         }

@@ -10,7 +10,7 @@
     width: 70%;
     font-family: ConcertOne;
     color: #FF8A00;
-    text-shadow: 2px 2px 3px rgb(64, 64, 64);
+    /* text-shadow: 2px 2px 3px rgb(64, 64, 64); */
   }
   
 
@@ -34,10 +34,10 @@
     font-size: 34px;
     border-radius: 80px;
     font-family: ConcertOne;
-    border: #57c1fe71 solid 4px;
+    /* border: #57c1fe71 solid 4px; */
     color: #FF8A00;
     background: white;
-    box-shadow: 0 0 15px 4px rgba(0, 0, 0, 0.16);
+    /* box-shadow: 0 0 15px 4px rgba(0, 0, 0, 0.16); */
     transition: font-size 0.1s ease-out 100ms ,  box-shadow 0.4s ease-out 100ms;
   }
   
