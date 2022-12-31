@@ -66,7 +66,7 @@ export default function Register() {
         }
         body {
           height: 100%;
-          background-image: url("/bg6.png");
+          background-image: url("assets/bg6.png");
           background-size: cover;
           background-repeat: no-repeat;
           font-family: ConcertOne;

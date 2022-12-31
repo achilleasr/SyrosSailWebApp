@@ -93,14 +93,14 @@ export default function Home({ token, org, url, api }) {
     <div className={styles.container}>
       <Head>
         <title>SAIL APP</title>
-        <link rel="icon" href="/favicon.ico" />
+        <link rel="icon" href="assets/favicon.ico" />
       </Head>
 
       <main>
         <h1 className={styles.title}>
           INFLUXDB Cloud με next.js
           <a href="/d">
-            <img className={styles.danibtn} src="d.jpg" />
+            <img className={styles.danibtn} src="assets/d.jpg" />
           </a>
         </h1>
 

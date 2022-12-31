@@ -18,7 +18,7 @@ export default function Register2() {
       <Head>
         <title>SAIL APP</title>
       </Head>
-      <img src="SplashLogo.png" className={styles.image} />
+      <img src="assets/SplashLogo.png" className={styles.image} />
       <div className={styles.title}>New {name} Account</div>
 
       <form action="/menu" onSubmit={submitContact}>

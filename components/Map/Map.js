@@ -97,14 +97,14 @@ function Map({ pointList, play }) {
     },
   });
 
-  let nodeIcon = new LeafIcon({ iconUrl: "/circleSmall2.png" });
+  let nodeIcon = new LeafIcon({ iconUrl: "assets/circleSmall2.png" });
 
   let LeafIcon2 = L.Icon.extend({
     options: {
       iconSize: [40, 10],
     },
   });
-  let boatIcon1 = new LeafIcon2({ iconUrl: "/sailboat1tiny.png" });
+  let boatIcon1 = new LeafIcon2({ iconUrl: "assets/sailboat1tiny.png" });
 
   const polyOptions = { color: "black", weight: 0.05 };
   //console.log(ler);

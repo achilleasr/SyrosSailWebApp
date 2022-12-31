@@ -19,7 +19,7 @@ export default function App() {
       <Head>
         <title>SAIL APP</title>
       </Head>
-      <img src="SplashLogo.png" className={styles.image} />
+      <img src="assets/SplashLogo.png" className={styles.image} />
       <div className={checked ? styles.title2 : styles.title}>Login</div>
       <input
         onClick={handleClick}
