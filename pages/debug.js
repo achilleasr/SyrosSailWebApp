@@ -93,14 +93,14 @@ export default function Home({ token, org, url, api }) {
     <div className={styles.container}>
       <Head>
         <title>SAIL APP</title>
-        <link rel="icon" href="assets/favicon.ico" />
+        <link rel="icon" href="/assets/favicon.ico" />
       </Head>
 
       <main>
         <h1 className={styles.title}>
           INFLUXDB Cloud με next.js
           <a href="/d">
-            <img className={styles.danibtn} src="assets/d.jpg" />
+            <img className={styles.danibtn} src="/assets/d.jpg" />
           </a>
         </h1>
 
@@ -251,14 +251,14 @@ export async function getServerSideProps() {
   const org1 = process.env.INFLUX_ORG;
   const token1 = process.env.INFLUX_TOKEN;
   const url1 = process.env.INFLUX_URL;
-  const api1 = process.env.WRLD_TOKEN;
+  // const api1 = process.env.WRLD_TOKEN;
 
   return {
     props: {
       org: org1,
       token: token1,
       url: url1,
-      api: api1,
+      // api: api1,
     },
   };
 }
