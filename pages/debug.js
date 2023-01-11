@@ -45,7 +45,6 @@ export default function Home({ token, org, url, api }) {
     let p = [];
     setPoints([]);
     let newp = {};
-    
     if (fluxQ == fluxQuery) {
       for (let i = 0; i < data.length; i += 2) {
         if (data[i]._field == "lon") {
@@ -77,7 +76,7 @@ export default function Home({ token, org, url, api }) {
           lon: data[i + 2]._value,
           temperature: data[i + 3]._value,
           time: data[i]._time,
-          key: i/4,
+          key: i / 4,
         };
 
         p.push(n);
