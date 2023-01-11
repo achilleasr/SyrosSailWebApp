@@ -8,11 +8,19 @@ import { useRouter } from "next/navigation";
 export default function App() {
   const router = useRouter();
   const [checked, setChecked] = useState(false);
+  const [comments , setComments] = useState(['a']);
   const handleClick = () => {
     setChecked(!checked);
   };
 
-  console.log(checked);
+  // console.log(checked);
+  console.log(comments);
+
+  const fetchComments = async () =>{
+      const response = await fetch('/api/ttn-webhook');
+      const data = await response.json();
+      setComments(data);
+  }
 
   return (
     <div className={styles.wrapper}>
