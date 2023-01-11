@@ -12,14 +12,18 @@ export default function First() {
 
   return (
     <div className="container">
-      <center style={{backgroundImage: `url("d.jpg")`,
-          width: '100%',
-          height: '100%',}}>
+      <center
+        style={{
+          backgroundImage: "url(/assets/d.jpg)",
+          width: "100%",
+          height: "100%",
+        }}
+      >
         <div className={styles.bg}>
           <a href="./">Go Back</a>
         </div>
         <Unity
-          style={{ width: "600px", height: "600px" }}
+          style={{ width: "800px", height: "600px" }}
           unityProvider={unityProvider}
         />
       </center>
@@ -32,12 +36,15 @@ export default function First() {
           flex-direction: column;
           justify-content: center;
           align-items: center;
-          background: black;
-          color:white;
-          
+          color: white;
         }
-        `}</style>
+      `}</style>
 
+      <style jsx global>{`
+        body {
+          background: black;
+        }
+      `}</style>
     </div>
   );
 }
