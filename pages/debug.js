@@ -16,12 +16,6 @@ export default function Home({ token, org, url, api }) {
   const [play, setPlay] = useState(false);
   const router = useRouter();
 
-  const [positions, setPositions] = useState([
-    { lon: 143.26488, lat: 57.51103 },
-    { lon: -144.91623, lat: -17.93533 },
-    { lon: -151.64971, lat: -49.99727 },
-  ]);
-
   const [isSubscribed, setIsSubscribed] = useState(false);
 
   const handleChange = (event) => {
@@ -35,57 +29,81 @@ export default function Home({ token, org, url, api }) {
 
   const queryApi = new InfluxDB({ url, token }).getQueryApi(org);
   let fluxQuery =
-    'from(bucket:"SailData") |> range(start: -100d) |> filter(fn: (r) => r._measurement == "m1")';
+    'from(bucket:"SailData") |> range(start: -1000d) |> filter(fn: (r) => r._measurement == "m1")';
 
-  async function collectRows() {
-    const data = await queryApi.collectRows(fluxQuery); // you can also specify a row mapper as a second argument
+  let fluxQueryTTN =
+    'from(bucket:"TTN_SailData") |> range(start: -1000d) |> filter(fn: (r) => r["_measurement"] == "sensor_data")';
+
+  async function collectRows(fluxQ) {
+    let data = await queryApi.collectRows(fluxQ);
     //data.forEach((x) => console.log(JSON.stringify(x)));
     console.log("\nCollect ROWS SUCCESS");
-    const numAscending = [...data].sort(
-      (a, b) => new Date(a._time) - new Date(b._time)
-    );
-    //console.log(numAscending);
+
+    data = [...data].sort((a, b) => a._field.localeCompare(b._field));
+    data = [...data].sort((a, b) => new Date(a._time) - new Date(b._time));
 
     let p = [];
-    for (let i = 0; i < numAscending.length; i += 2) {
-      if (numAscending[i]._field == "lon") {
-        let newp = {
-          lon: numAscending[i]._value,
-          lat: numAscending[i + 1]._value,
-          time: numAscending[i]._time,
-        };
-        p.push(newp);
-      } else {
-        let newp = {
-          lon: numAscending[i + 1]._value,
-          lat: numAscending[i]._value,
-          time: numAscending[i]._time,
-        };
-        p.push(newp);
+    setPoints([]);
+    let newp = {};
+    
+    if (fluxQ == fluxQuery) {
+      for (let i = 0; i < data.length; i += 2) {
+        if (data[i]._field == "lon") {
+          newp = {
+            lon: data[i]._value,
+            lat: data[i + 1]._value,
+            time: data[i]._time,
+            key: data[i]._time,
+          };
+          p.push(newp);
+        } else {
+          newp = {
+            lon: data[i + 1]._value,
+            lat: data[i]._value,
+            time: data[i]._time,
+            key: data[i]._time,
+          };
+          p.push(newp);
+        }
       }
-    }
 
-    //console.log(p);
-    setPoints(p);
+      setPoints(p);
+    } else {
+      let ptime = 0;
+      for (let i = 0; i < data.length; i += 4) {
+        let n = {
+          humidity: data[i]._value,
+          lat: data[i + 1]._value,
+          lon: data[i + 2]._value,
+          temperature: data[i + 3]._value,
+          time: data[i]._time,
+          key: i/4,
+        };
+
+        p.push(n);
+      }
+
+      console.log(p);
+      setPoints(p);
+    }
   }
 
   function BtnPressed() {
-    collectRows();
-    setPlay(true);
+    collectRows(fluxQuery);
   }
 
   function BtnPressed2() {
-    collectRows();
+    collectRows(fluxQueryTTN);
   }
 
   const handleClick = (e) => {
     e.preventDefault();
     router.push(
       {
-        pathname: '/nextpage',
+        pathname: "/nextpage",
         query: { noom: "NOOMMMM" },
       },
-      '/nextpage'
+      "/nextpage"
     );
   };
 
@@ -139,19 +157,19 @@ export default function Home({ token, org, url, api }) {
               >
                 Route 1
               </button>
-              {/* <button
+              <button
                 style={{
                   width: "60%",
                 }}
                 onClick={BtnPressed2}
               >
                 Route 2
-              </button> */}
+              </button>
 
               {points.map((point) => {
                 return (
                   <div
-                    key={point.time}
+                    key={point.key}
                     style={{
                       display: "flex",
                       flexDirection: "column",
