@@ -9,13 +9,12 @@ import { useSelector } from "react-redux";
 export default function App() {
   const router = useRouter();
   const [checked, setChecked] = useState(false);
-  const [comments, setComments] = useState(["a"]);
   const handleClick = () => {
     setChecked(!checked);
   };
 
   const requestBody = useSelector((state) => state.requestBody);
-  // console.log(requestBody);
+  console.log(requestBody);
 
   useEffect(() => {
     if (requestBody) {
@@ -24,13 +23,7 @@ export default function App() {
   }, [requestBody]);
 
   // console.log(checked);
-  // console.log(comments);
 
-  const fetchComments = async () => {
-    const response = await fetch("/api/ttn-webhook");
-    const data = await response.json();
-    setComments(data);
-  };
 
   return (
     <div className={styles.wrapper}>
