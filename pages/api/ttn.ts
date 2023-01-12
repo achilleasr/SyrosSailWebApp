@@ -1,6 +1,5 @@
 import { NextApiRequest, NextApiResponse } from 'next';
-import store from '/pages/store.js';
-
+import store from "../../components/store";
 
 const handler = (req: NextApiRequest, res: NextApiResponse) => {
     if (req.method === 'POST') {

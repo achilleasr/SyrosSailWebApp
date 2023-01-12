@@ -1,6 +1,7 @@
 import { Provider } from "react-redux";
 import { App } from "next/app";
-import store from '/pages/store.js';
+import store from "../components/store";
+
 // import { createStore } from "redux";
 
 
