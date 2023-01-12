@@ -16,7 +16,7 @@ function Profile() {
 
   if (error) return <div>failed to load</div>
   if (isLoading) return <div>loading...</div>
-  return <div>hello {data.name}!</div>
+  return <div>hello {data}!</div>
 }
 
 export default function App() {
