@@ -5,6 +5,19 @@ import styles from "../styles/Index.module.css";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useSelector } from "react-redux";
+import useSWR from 'swr';
+
+
+
+const fetcher = (url) => fetch(url).then(r => r.json())
+
+function Profile() {
+  const { data, error, isLoading } = useSWR('/api/ttn2', fetcher)
+
+  if (error) return <div>failed to load</div>
+  if (isLoading) return <div>loading...</div>
+  return <div>hello {data.name}!</div>
+}
 
 export default function App() {
   const router = useRouter();
@@ -32,6 +45,7 @@ export default function App() {
       </Head>
       <img src="assets/SplashLogo.png" className={styles.image} />
       <div className={checked ? styles.title2 : styles.title}>Login</div>
+      <Profile />
       <input
         onClick={handleClick}
         name="fontBox"
