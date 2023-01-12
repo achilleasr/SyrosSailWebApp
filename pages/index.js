@@ -1,26 +1,36 @@
-import React, { useState } from "react";
+import React, { useState , useEffect} from "react";
 import Head from "next/head";
 // import "@fontsource/concert-one";
 import styles from "../styles/Index.module.css";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { useSelector } from "react-redux";
 
 export default function App() {
   const router = useRouter();
   const [checked, setChecked] = useState(false);
-  const [comments , setComments] = useState(['a']);
+  const [comments, setComments] = useState(["a"]);
   const handleClick = () => {
     setChecked(!checked);
   };
 
-  // console.log(checked);
-  console.log(comments);
+  const requestBody = useSelector((state) => state.requestBody);
+  // console.log(requestBody);
 
-  const fetchComments = async () =>{
-      const response = await fetch('/api/ttn-webhook');
-      const data = await response.json();
-      setComments(data);
-  }
+  useEffect(() => {
+    if (requestBody) {
+      console.log(requestBody);
+    }
+  }, [requestBody]);
+
+  // console.log(checked);
+  // console.log(comments);
+
+  const fetchComments = async () => {
+    const response = await fetch("/api/ttn-webhook");
+    const data = await response.json();
+    setComments(data);
+  };
 
   return (
     <div className={styles.wrapper}>
@@ -95,7 +105,7 @@ export default function App() {
         }
         body {
           height: 100%;
-          background: #09A1C8;
+          background: #09a1c8;
           background-attachment: fixed;
           font-family: "Concert One";
         }
