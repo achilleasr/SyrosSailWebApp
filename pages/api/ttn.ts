@@ -1,5 +1,5 @@
 import { NextApiRequest, NextApiResponse } from 'next';
-import store from 'pages/store.js';
+import store from '/pages/store.js';
 
 
 const handler = (req: NextApiRequest, res: NextApiResponse) => {
