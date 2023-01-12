@@ -16,8 +16,6 @@ function reducer(state = initialState, action) {
   }
 }
 
-
-
 const store = createStore(reducer);
 
 function MyApp({ Component, pageProps }) {
