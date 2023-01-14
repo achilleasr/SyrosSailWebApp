@@ -25,28 +25,28 @@ export default function App({ appId, accessKey }) {
     setChecked(!checked);
   };
 
-  // const appId = "your-app-id";
-  // const accessKey = "your-access-key";
-
-  const client = new ttn.Client(
-    'staging',
-    appId,
-    accessKey
-  );
 
 
-  client.on("uplink", (devId, payload) => {
-    console.log(payload);
-  });
+  // const client = new ttn.Client(
+  //   'staging',
+  //   appId,
+  //   accessKey
+  // );
 
 
-  client.on('error', (err) => {
-    console.log(err);
-  });
+  // client.on("uplink", (devId, payload) => {
+  //   console.log(payload);
+  // });
+
+
+  // client.on('error', (err) => {
+  //   console.log(err);
+  // });
   
-  client.on('connect', (connack) => {
-    console.log('Connect:', connack);
-  });
+  // client.on('connect', (connack) => {
+  //   console.log('Connect:', connack);
+  // });
+
   // const requestBody = useSelector((state) => state.requestBody);
   // console.log(requestBody);
 
