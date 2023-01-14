@@ -29,7 +29,7 @@ export default function App({ appId, accessKey }) {
   // const accessKey = "your-access-key";
 
   const client = new ttn.Client(
-    'wss://staging.thethingsnetwork.org:8084/applications/'+appId,
+    'staging',
     appId,
     accessKey
   );
