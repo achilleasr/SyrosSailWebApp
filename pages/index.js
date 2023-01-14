@@ -7,6 +7,7 @@ import { useRouter } from "next/navigation";
 import { useSelector } from "react-redux";
 import useSWR from "swr";
 import ttn from "ttn";
+import mqtt from "mqtt";
 
 const fetcher = (url) => fetch(url).then((r) => r.json());
 
@@ -25,24 +26,31 @@ export default function App({ appId, accessKey }) {
     setChecked(!checked);
   };
 
-
-
+  const client = mqtt.connect(
+    "mqtt://" +
+      appId +
+      ":" +
+      accessKey +
+      "@eu.thethings.network:1883"
+  );
+  client.subscribe("#");
+  client.on("message", (topic, message) => {
+    console.log(`Received message on topic ${topic}: ${message.toString()}`);
+  });
   // const client = new ttn.Client(
   //   'staging',
   //   appId,
   //   accessKey
   // );
 
-
   // client.on("uplink", (devId, payload) => {
   //   console.log(payload);
   // });
 
-
   // client.on('error', (err) => {
   //   console.log(err);
   // });
-  
+
   // client.on('connect', (connack) => {
   //   console.log('Connect:', connack);
   // });
@@ -63,7 +71,7 @@ export default function App({ appId, accessKey }) {
       </Head>
       <img src="assets/SplashLogo.png" className={styles.image} />
       <div className={checked ? styles.title2 : styles.title}>Login</div>
-      <Profile />
+      {/* <Profile /> */}
       {/* <input
         onClick={handleClick}
         name="fontBox"
@@ -153,16 +161,14 @@ export default function App({ appId, accessKey }) {
   );
 }
 
-
 export async function getServerSideProps() {
-
   const appId1 = process.env.APP_ID;
   const accessKey1 = process.env.ACCESS_KEY;
 
   return {
     props: {
       appId: appId1,
-      accessKey: accessKey1
+      accessKey: accessKey1,
     },
   };
 }
