@@ -26,17 +26,17 @@ export default function App({ appId, accessKey }) {
     setChecked(!checked);
   };
 
-  const client = mqtt.connect(
-    "mqtt://" +
-      appId +
-      ":" +
-      accessKey +
-      "@eu1.cloud.thethings.network:8883"
-  );
-  client.subscribe("#");
-  client.on("message", (topic, message) => {
-    console.log(`Received message on topic ${topic}: ${message.toString()}`);
-  });
+  // const client = mqtt.connect(
+  //   "wss://" +
+  //     appId +
+  //     ":" +
+  //     accessKey +
+  //     "@eu1.cloud.thethings.network:8883"
+  // );
+  // client.subscribe("#");
+  // client.on("message", (topic, message) => {
+  //   console.log(`Received message on topic ${topic}: ${message.toString()}`);
+  // });
   // const client = new ttn.Client(
   //   'staging',
   //   appId,
@@ -71,7 +71,7 @@ export default function App({ appId, accessKey }) {
       </Head>
       <img src="assets/SplashLogo.png" className={styles.image} />
       <div className={checked ? styles.title2 : styles.title}>Login</div>
-      {/* <Profile /> */}
+      <Profile />
       {/* <input
         onClick={handleClick}
         name="fontBox"
