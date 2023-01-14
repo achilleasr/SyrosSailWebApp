@@ -11,7 +11,7 @@ import ttn from "ttn";
 const fetcher = (url) => fetch(url).then((r) => r.json());
 
 function Profile() {
-  const { data, error, isLoading } = useSWR("/api/ttn2", fetcher);
+  const { data, error, isLoading } = useSWR("/api/ttn3", fetcher);
 
   if (error) return <div>failed to load</div>;
   if (isLoading) return <div>loading...</div>;
@@ -63,7 +63,7 @@ export default function App({ appId, accessKey }) {
       </Head>
       <img src="assets/SplashLogo.png" className={styles.image} />
       <div className={checked ? styles.title2 : styles.title}>Login</div>
-      {/* <Profile /> */}
+      <Profile />
       {/* <input
         onClick={handleClick}
         name="fontBox"
