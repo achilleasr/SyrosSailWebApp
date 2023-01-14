@@ -29,7 +29,7 @@ export default function App({ appId, accessKey }) {
   // const accessKey = "your-access-key";
 
   const client = new ttn.Client(
-    "thethingsnetwork.org",
+    "staging.thethingsnetwork.org",
     appId,
     accessKey
   );
