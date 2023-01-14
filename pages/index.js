@@ -27,7 +27,7 @@ export default function App({ appId, accessKey }) {
   };
 
   const client = mqtt.connect(
-    "wss://" +
+    "mqtt://" +
       appId +
       ":" +
       accessKey +
