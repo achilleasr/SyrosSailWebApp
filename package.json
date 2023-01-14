@@ -10,6 +10,7 @@
     "@influxdata/influxdb-client": "^1.33.0",
     "@influxdata/influxdb-client-apis": "^1.33.0",
     "@next/font": "^13.1.1",
+    "axios": "^1.2.2",
     "express": "^4.18.2",
     "leaflet": "^1.9.3",
     "leaflet-defaulticon-compatibility": "^0.1.1",
