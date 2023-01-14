@@ -1,42 +1,60 @@
-import React, { useState , useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import Head from "next/head";
 // import "@fontsource/concert-one";
 import styles from "../styles/Index.module.css";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useSelector } from "react-redux";
-import useSWR from 'swr';
+import useSWR from "swr";
+import ttn from "ttn";
 
-
-
-const fetcher = (url) => fetch(url).then(r => r.json())
+const fetcher = (url) => fetch(url).then((r) => r.json());
 
 function Profile() {
-  const { data, error, isLoading } = useSWR('/api/ttn2', fetcher)
+  const { data, error, isLoading } = useSWR("/api/ttn2", fetcher);
 
-  if (error) return <div>failed to load</div>
-  if (isLoading) return <div>loading...</div>
-  return <div>hello {JSON.stringify(data)}!</div>
+  if (error) return <div>failed to load</div>;
+  if (isLoading) return <div>loading...</div>;
+  return <div>hello {JSON.stringify(data)}!</div>;
 }
 
-export default function App() {
+export default function App({ appId, accessKey }) {
   const router = useRouter();
   const [checked, setChecked] = useState(false);
   const handleClick = () => {
     setChecked(!checked);
   };
 
-  const requestBody = useSelector((state) => state.requestBody);
-  console.log(requestBody);
+  // const appId = "your-app-id";
+  // const accessKey = "your-access-key";
 
-  useEffect(() => {
-    if (requestBody) {
-      console.log(requestBody);
-    }
-  }, [requestBody]);
+  const client = new ttn.Client(
+    "thethingsnetwork.org",
+    appId,
+    accessKey
+  );
 
-  // console.log(checked);
 
+  client.on("uplink", (devId, payload) => {
+    console.log(payload);
+  });
+
+
+  client.on('error', (err) => {
+    console.log(err);
+  });
+  
+  client.on('connect', (connack) => {
+    console.log('Connect:', connack);
+  });
+  // const requestBody = useSelector((state) => state.requestBody);
+  // console.log(requestBody);
+
+  // useEffect(() => {
+  //   if (requestBody) {
+  //     console.log(requestBody);
+  //   }
+  // }, [requestBody]);
 
   return (
     <div className={styles.wrapper}>
@@ -45,14 +63,14 @@ export default function App() {
       </Head>
       <img src="assets/SplashLogo.png" className={styles.image} />
       <div className={checked ? styles.title2 : styles.title}>Login</div>
-      <Profile />
-      <input
+      {/* <Profile /> */}
+      {/* <input
         onClick={handleClick}
         name="fontBox"
         type="checkbox"
         id="fontBox"
         className={styles.checkbox}
-      />
+      /> */}
 
       <form action="/menu" method="post">
         <input
@@ -133,4 +151,18 @@ export default function App() {
       `}</style>
     </div>
   );
+}
+
+
+export async function getServerSideProps() {
+
+  const appId1 = process.env.APP_ID;
+  const accessKey1 = process.env.ACCESS_KEY;
+
+  return {
+    props: {
+      appId: appId1,
+      accessKey: accessKey1
+    },
+  };
 }
