@@ -31,7 +31,7 @@ export default function App({ appId, accessKey }) {
       appId +
       ":" +
       accessKey +
-      "@eu.thethings.network:8883"
+      "@eu1.cloud.thethings.network:8883"
   );
   client.subscribe("#");
   client.on("message", (topic, message) => {
