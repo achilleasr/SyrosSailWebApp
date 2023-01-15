@@ -1,5 +1,5 @@
 import Head from "next/head";
-import styles from "../styles/First.module.css";
+import styles from "../styles/Debug.module.css";
 import React, { useState, useEffect } from "react";
 import ReactDOM from "react-dom";
 import { InfluxDB, FluxTableMetaData } from "@influxdata/influxdb-client";
@@ -13,6 +13,7 @@ import { useRouter } from "next/navigation";
 
 export default function Home({ token, org, url, api }) {
   const [points, setPoints] = useState([]);
+  const [lastSpeed, setLastSpeed] = useState({});
   const [play, setPlay] = useState(false);
   const router = useRouter();
   const [liveRepeat, setLiveRepeat] = useState(false);
@@ -36,16 +37,26 @@ export default function Home({ token, org, url, api }) {
     'from(bucket:"TTN_SailData") |> range(start: -1000d) |> filter(fn: (r) => r["_measurement"] == "sensor_data")';
 
   let fluxQueryLatest = `from(bucket: "TTN_SailData")
-  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)
+  |> range(start: -30m)
   |> filter(fn: (r) => r["_measurement"] == "sensor_data")
+  |> last()`;
+
+  let fluxQueryDifference = `from(bucket: "TTN_SailData")
+  |> range(start: -30m)
+  |> filter(fn: (r) => r["_measurement"] == "sensor_data")
+  |> difference()
   |> last()`;
 
   async function getCurrent(fluxQ) {
     let data = await queryApi.collectRows(fluxQ);
-    console.log("\nCollect LIVE SUCCESS");
+    let diff = await queryApi.collectRows(fluxQueryDifference);
+    // console.log("\nCollect LIVE SUCCESS");
     data = [...data].sort((a, b) => a._field.localeCompare(b._field));
+    diff = [...diff].sort((a, b) => a._field.localeCompare(b._field));
     let p = [];
+    let speed = {}
     setPoints([]);
+    setLastSpeed({});
 
     let n = {
       humidity: data[0]._value,
@@ -55,13 +66,21 @@ export default function Home({ token, org, url, api }) {
       time: data[0]._time,
       key: 0,
     };
+    let s = {
+      lat: data[1]._value+diff[1]._value,
+      lon: data[2]._value+diff[2]._value,
+    }
 
     p.push(n);
-
-    console.log(p);
     setPoints(p);
+    setLastSpeed(s);
   }
 
+  if (liveRepeat) {
+    const timer = setTimeout(() => {
+      getCurrent(fluxQueryLatest);
+    }, 2000);
+  }
   async function collectRows(fluxQ) {
     let data = await queryApi.collectRows(fluxQ);
     //data.forEach((x) => console.log(JSON.stringify(x)));
@@ -117,23 +136,23 @@ export default function Home({ token, org, url, api }) {
 
   function BtnPressed() {
     collectRows(fluxQuery);
+    setLiveRepeat(false);
   }
 
   function BtnPressed2() {
     collectRows(fluxQueryTTN);
+    setLiveRepeat(false);
   }
 
   function BtnPressed3() {
-    const timer = setTimeout(() => {
-      getCurrent(fluxQueryLatest);
-    }, 1000);
+    setPoints([]);
     if (liveRepeat == false) {
       console.log("live enabled");
       setLiveRepeat(true);
     } else {
-      clearTimeout(timer);
       console.log("live stopped");
       setLiveRepeat(false);
+      setPoints([]);
     }
   }
 
@@ -156,7 +175,7 @@ export default function Home({ token, org, url, api }) {
       </Head>
 
       <main>
-        <h1 className={styles.title}>
+        {/* <h1 className={styles.title}>
           INFLUXDB Cloud με next.js
           <a href="/d">
             <img className={styles.danibtn} src="/assets/d.jpg" />
@@ -166,7 +185,7 @@ export default function Home({ token, org, url, api }) {
         <a href="/nextpage"> NNNNNN </a>
         <button type="button" onClick={handleClick}>
           NextPage
-        </button>
+        </button> */}
         {/* 
         <h3>3D <input type="checkbox" id="myCheck" onChange={handleChange}/> </h3> 
         {isSubscribed == true && (
@@ -175,21 +194,10 @@ export default function Home({ token, org, url, api }) {
 
         ) }
          */}
-        <div
-          className="Wrapper"
-          style={{
-            width: "100%",
-          }}
-        >
-          <div
-            style={{
-              display: "flex",
-              flexDirection: "column",
-              float: "left",
-              width: "40%",
-            }}
-          >
-            <center>
+        <div className={styles.wrapper}>
+          <Map pointList={points} play={play} lastSpeed={lastSpeed}/>
+          <div className={styles.buttons}>
+            <center style={{ padding: "20px 0px" }}>
               <button
                 style={{
                   width: "60%",
@@ -245,70 +253,30 @@ export default function Home({ token, org, url, api }) {
               })}
             </center>
           </div>
-
-          <div
-            style={{
-              float: "right",
-              width: "50%",
-              textAlign: "center",
-            }}
-          >
-            Map
-          </div>
-          <Map style={{ align: "center" }} pointList={points} play={play} />
         </div>
       </main>
 
-      <footer></footer>
-
-      <style jsx>{`
-        main {
-          padding: 5rem 0;
-          flex: 1;
-          display: flex;
-          flex-direction: column;
-          justify-content: center;
-          align-items: center;
-        }
-        footer {
-          width: 100%;
-          height: 100px;
-          border-top: 1px solid #eaeaea;
-          display: flex;
-          justify-content: center;
-          align-items: center;
-        }
-        footer img {
-          margin-left: 0.5rem;
-        }
-        footer a {
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          text-decoration: none;
-          color: inherit;
-        }
-        code {
-          background: #fafafa;
-          border-radius: 5px;
-          padding: 0.75rem;
-          font-size: 1.1rem;
-          font-family: Menlo, Monaco, Lucida Console, Liberation Mono,
-            DejaVu Sans Mono, Bitstream Vera Sans Mono, Courier New, monospace;
-        }
-      `}</style>
-
       <style jsx global>{`
-        html,
-        body {
-          padding: 0;
-          margin: 0;
-          font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto,
-            Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue,
-            sans-serif;
+        html {
+          width: 100%;
+          // background-image: url("assets/ocean-bg.jpg");
+          height: 100%;
+          background: linear-gradient(
+            0deg,
+            rgba(0, 4, 78, 1) 0%,
+            rgba(75, 77, 194, 1) 44%,
+            rgba(0, 198, 255, 1) 77%,
+            rgba(99, 226, 255, 1) 88%,
+            rgba(207, 254, 255, 1) 95%,
+            rgba(238, 255, 255, 1) 100%
+          );
+          background-attachment: fixed;
         }
-        * {
-          box-sizing: border-box;
+        button {
+          border-radius: 20px;
+          height: 2rem;
+          border: 2px solid white;
+          margin: 2px;
         }
       `}</style>
     </div>

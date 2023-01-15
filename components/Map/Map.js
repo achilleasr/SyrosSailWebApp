@@ -9,7 +9,14 @@ import React, {
 } from "react";
 import "leaflet/dist/leaflet.css";
 import L from "leaflet";
-import { MapContainer, TileLayer, Marker, Polyline } from "react-leaflet";
+import {
+  MapContainer,
+  TileLayer,
+  Marker,
+  Polyline,
+  Popup,
+  Tooltip,
+} from "react-leaflet";
 import "leaflet-rotatedmarker";
 // import { LeafletTrackingMarker } from "react-leaflet-tracking-marker";
 // import {lerp} from "lerp";
@@ -43,9 +50,11 @@ const RotatedMarker = forwardRef(({ children, ...props }, forwardRef) => {
   );
 });
 
-function Map({ pointList, play }) {
+function Map({ pointList, play, lastSpeed }) {
   const [loc1, setLoc1] = useState([37.389571, 24.881624]);
   const [heading, setHeading] = useState(0);
+  const [heading2, setHeading2] = useState(0);
+
   const [ler, setLer] = useState(0);
   const [ler2, setLer2] = useState(0);
 
@@ -55,6 +64,21 @@ function Map({ pointList, play }) {
       let r = [point.lat, point.lon];
       poly.push(r);
     });
+  }
+
+  function calculateAngle(p1, p2) {
+    // θ = atan2(Math.sin(p2.lon) * Math.cos(p1.lat+p2.lat), Math.cos(p1.lat) * Math.sin(p1.lat+p2.lat) -
+    // Math.sin(p1.lat) * Math.cos(p1.lat+p2.lat) * Math.cos(p2.lon));
+
+    const y = Math.sin(p2.lon) * Math.cos(p1.lat + p2.lat);
+    const x =
+      Math.cos(p1.lat) * Math.sin(p1.lat + p2.lat) -
+      Math.sin(p1.lat) * Math.cos(p1.lat + p2.lat) * Math.cos(p2.lon);
+    const th = Math.atan2(y, x);
+    const brng = ((th * 180.0) / Math.PI + 360) % 360; // in degrees
+    console.log(brng);
+
+    return brng;
   }
 
   function lerp(v0, v1, t) {
@@ -76,6 +100,8 @@ function Map({ pointList, play }) {
       37.389471 + 0.001 * Math.sin(Date.now() * 0.001),
       24.870624 + 0.001 * Math.cos(Date.now() * 0.001),
     ]);
+    let c = calculateAngle(pointList[0], lastSpeed);
+    setHeading2(c);
     setHeading((heading) => heading + 5);
     //if (play) {
     setLer((ler) => (ler + 2) % 101);
@@ -97,16 +123,32 @@ function Map({ pointList, play }) {
     },
   });
 
+  let LeafIcon3 = L.Icon.extend({
+    options: {
+      iconSize: [55, 55],
+      iconAnchor: [10, 52],
+    },
+  });
+
   let nodeIcon = new LeafIcon({ iconUrl: "assets/circleSmall2.png" });
+  let pinIcon = new LeafIcon3({ iconUrl: "assets/pin1.png" });
 
   let LeafIcon2 = L.Icon.extend({
     options: {
       iconSize: [40, 10],
     },
   });
-  let boatIcon1 = new LeafIcon2({ iconUrl: "assets/sailboat1tiny.png" });
 
-  const polyOptions = { color: "black", weight: 0.05 };
+  let LeafIcon4 = L.Icon.extend({
+    options: {
+      iconSize: [30, 11],
+    },
+  });
+  let boatIcon1 = new LeafIcon2({ iconUrl: "assets/sailboat1tiny.png" });
+  let boatIcon2 = new LeafIcon4({ iconUrl: "assets/boat2.png" });
+
+  const polyOptions = { color: "white", weight: 0.07 };
+  const polyOptions2 = { color: "red", weight: 10.17 };
   //console.log(ler);
 
   return (
@@ -115,11 +157,17 @@ function Map({ pointList, play }) {
         className={style.map}
         center={[37.389571, 24.881624]}
         zoom={11}
+        maxZoom={17}
         scrollWheelZoom={true}
+        zoomControl={false}
+        attributionControl={false}
       >
         <TileLayer
+          url="https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}"
+          // url= 'http://tile.mtbmap.cz/mtbmap_tiles/{z}/{x}/{y}.png'
+          // attribution: 'Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community'
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+          // url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
         {pointList.length > 1 && (
           <Marker
@@ -137,28 +185,112 @@ function Map({ pointList, play }) {
                 ler * 0.01
               ),
             ]}
-            icon={nodeIcon}
+            icon={pinIcon}
           ></Marker>
         )}
 
-        <RotatedMarker
+        {/* <RotatedMarker
           position={[loc1[0], loc1[1]]}
           icon={boatIcon1}
           rotationAngle={-heading}
           rotationOrigin="center"
-        ></RotatedMarker>
+        ></RotatedMarker> */}
 
-        {pointList.map((point) => {
-          return (
-            <div key={point.time}>
-              {/* <Marker
-                position={[point.lat, point.lon]}
-                icon={nodeIcon}
-              ></Marker> */}
-              <Polyline pathOptions={polyOptions} positions={poly} />
-            </div>
-          );
-        })}
+        {pointList.length == 1 ? (
+          <div key={pointList[0].time}>
+            {/* <Marker
+              position={[pointList[0].lat, pointList[0].lon]}
+              icon={boatIcon2}
+            >
+              <Tooltip
+                direction="bottom"
+                offset={[2, 30]}
+                opacity={1}
+                permanent
+              >
+                <div className={style.tooltipNames}>Lat: </div>
+                {pointList[0].lat}°N
+                <br />
+                <div className={style.tooltipNames}>Lon: </div>
+                {pointList[0].lon}°E
+                <br />
+                <div className={style.tooltipNames}>Humidity: </div>
+                {pointList[0].humidity}%<br />
+                <div className={style.tooltipNames}>Temperature: </div>
+                {pointList[0].temperature}°C
+                <br />
+                <div className={style.tooltipNames}>Time: </div>
+                {new Date(Date.parse(pointList[0].time)).toLocaleTimeString(
+                  "it-IT"
+                )}
+              </Tooltip>
+            </Marker> */}
+
+            <RotatedMarker
+              position={[pointList[0].lat, pointList[0].lon]}
+              icon={boatIcon2}
+              rotationAngle={heading2}
+              rotationOrigin="center"
+            ><Tooltip
+            direction="bottom"
+            offset={[2, 30]}
+            opacity={1}
+            permanent
+          >
+            <div className={style.tooltipNames}>Lat: </div>
+            {pointList[0].lat}°N
+            <br />
+            <div className={style.tooltipNames}>Lon: </div>
+            {pointList[0].lon}°E
+            <br />
+            <div className={style.tooltipNames}>Humidity: </div>
+            {pointList[0].humidity}%<br />
+            <div className={style.tooltipNames}>Temperature: </div>
+            {pointList[0].temperature}°C
+            <br />
+            <div className={style.tooltipNames}>Time: </div>
+            {new Date(Date.parse(pointList[0].time)).toLocaleTimeString(
+              "it-IT"
+            )}
+          </Tooltip></RotatedMarker>
+
+            {/* <Marker
+              position={[lastSpeed.lat, lastSpeed.lon]}
+              icon={pinIcon}
+            ></Marker> */}
+            <Polyline
+              pathOptions={polyOptions2}
+              positions={[
+                [lastSpeed.lat, lastSpeed.lon],
+                [pointList[0].lat, pointList[0].lon],
+              ]}
+            />
+          </div>
+        ) : (
+          pointList.map((point) => {
+            return (
+              <div key={point.time}>
+                {/* <Marker
+                  position={[point.lat, point.lon]}
+                  icon={nodeIcon}
+                  isActive
+                >
+                  <Popup>
+                    Lat : {point.lat}°N
+                    <br />
+                    Lon: {point.lon}°E
+                    <br />
+                    Humidity: {point.humidity}%<br />
+                    Temperature: {point.temperature}°C
+                    <br />
+                    Time: {point.time}
+                  </Popup>
+                </Marker> */}
+                <Polyline pathOptions={polyOptions} positions={poly} />
+              </div>
+            );
+          })
+        )}
 
         {/* <AirplaneMarker data={currentTrack ?? {}} /> */}
       </MapContainer>

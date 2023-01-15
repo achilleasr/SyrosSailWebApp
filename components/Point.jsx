@@ -5,7 +5,7 @@ const ListItem2 = (props) => {
     <div >
       {/* <div>Id : {props.id}</div> */}
       <div>Lon: {props.lon} Lat: {props.lat}</div>
-      <div>Time: {props.time}</div>
+      <div>Time: {new Date(Date.parse(props.time)).toLocaleTimeString("it-IT")}</div>
     </div>
   );
 };
