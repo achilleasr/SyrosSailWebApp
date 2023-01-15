@@ -76,7 +76,7 @@ function Map({ pointList, play, lastSpeed }) {
       Math.sin(p1.lat) * Math.cos(p1.lat + p2.lat) * Math.cos(p2.lon);
     const th = Math.atan2(y, x);
     const brng = ((th * 180.0) / Math.PI + 360) % 360; // in degrees
-    console.log(brng);
+    // console.log(brng);
 
     return brng;
   }
