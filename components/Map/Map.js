@@ -69,16 +69,19 @@ function Map({ pointList, play, lastSpeed }) {
   function calculateAngle(p1, p2) {
     // θ = atan2(Math.sin(p2.lon) * Math.cos(p1.lat+p2.lat), Math.cos(p1.lat) * Math.sin(p1.lat+p2.lat) -
     // Math.sin(p1.lat) * Math.cos(p1.lat+p2.lat) * Math.cos(p2.lon));
+    if (p1 != null && p2 != null) {
+      const y = Math.sin(p2.lon) * Math.cos(p1.lat + p2.lat);
+      const x =
+        Math.cos(p1.lat) * Math.sin(p1.lat + p2.lat) -
+        Math.sin(p1.lat) * Math.cos(p1.lat + p2.lat) * Math.cos(p2.lon);
+      const th = Math.atan2(y, x);
+      const brng = ((th * 180.0) / Math.PI + 360) % 360; // in degrees
+      // console.log(brng);
 
-    const y = Math.sin(p2.lon) * Math.cos(p1.lat + p2.lat);
-    const x =
-      Math.cos(p1.lat) * Math.sin(p1.lat + p2.lat) -
-      Math.sin(p1.lat) * Math.cos(p1.lat + p2.lat) * Math.cos(p2.lon);
-    const th = Math.atan2(y, x);
-    const brng = ((th * 180.0) / Math.PI + 360) % 360; // in degrees
-    // console.log(brng);
-
-    return brng;
+      return brng;
+    } else {
+      return 0;
+    }
   }
 
   function lerp(v0, v1, t) {
@@ -231,28 +234,30 @@ function Map({ pointList, play, lastSpeed }) {
               icon={boatIcon2}
               rotationAngle={heading2}
               rotationOrigin="center"
-            ><Tooltip
-            direction="bottom"
-            offset={[2, 30]}
-            opacity={1}
-            permanent
-          >
-            <div className={style.tooltipNames}>Lat: </div>
-            {pointList[0].lat}°N
-            <br />
-            <div className={style.tooltipNames}>Lon: </div>
-            {pointList[0].lon}°E
-            <br />
-            <div className={style.tooltipNames}>Humidity: </div>
-            {pointList[0].humidity}%<br />
-            <div className={style.tooltipNames}>Temperature: </div>
-            {pointList[0].temperature}°C
-            <br />
-            <div className={style.tooltipNames}>Time: </div>
-            {new Date(Date.parse(pointList[0].time)).toLocaleTimeString(
-              "it-IT"
-            )}
-          </Tooltip></RotatedMarker>
+            >
+              <Tooltip
+                direction="bottom"
+                offset={[2, 30]}
+                opacity={1}
+                permanent
+              >
+                <div className={style.tooltipNames}>Lat: </div>
+                {pointList[0].lat}°N
+                <br />
+                <div className={style.tooltipNames}>Lon: </div>
+                {pointList[0].lon}°E
+                <br />
+                <div className={style.tooltipNames}>Humidity: </div>
+                {pointList[0].humidity}%<br />
+                <div className={style.tooltipNames}>Temperature: </div>
+                {pointList[0].temperature}°C
+                <br />
+                <div className={style.tooltipNames}>Time: </div>
+                {new Date(Date.parse(pointList[0].time)).toLocaleTimeString(
+                  "it-IT"
+                )}
+              </Tooltip>
+            </RotatedMarker>
 
             {/* <Marker
               position={[lastSpeed.lat, lastSpeed.lon]}
