@@ -149,7 +149,7 @@ function Map({ pointList, play, lastSpeed }) {
   });
   let boatIcon1 = new LeafIcon2({ iconUrl: "assets/sailboat1tiny.png" });
   let boatIcon2 = new LeafIcon4({ iconUrl: "assets/boat2.png" });
-
+  let boatIcon3 = new LeafIcon4({ iconUrl: "assets/boat3w.png" });
   const polyOptions = { color: "white", weight: 0.07 };
   const polyOptions2 = { color: "red", weight: 10.17 };
   //console.log(ler);
@@ -231,7 +231,7 @@ function Map({ pointList, play, lastSpeed }) {
 
             <RotatedMarker
               position={[pointList[0].lat, pointList[0].lon]}
-              icon={boatIcon2}
+              icon={boatIcon3}
               rotationAngle={heading2}
               rotationOrigin="center"
             >
@@ -263,13 +263,13 @@ function Map({ pointList, play, lastSpeed }) {
               position={[lastSpeed.lat, lastSpeed.lon]}
               icon={pinIcon}
             ></Marker> */}
-            <Polyline
+            {/* <Polyline
               pathOptions={polyOptions2}
               positions={[
                 [lastSpeed.lat, lastSpeed.lon],
                 [pointList[0].lat, pointList[0].lon],
               ]}
-            />
+            /> */}
           </div>
         ) : (
           pointList.map((point) => {
