@@ -15,6 +15,7 @@ export default function Home({ token, org, url, api }) {
   const [points, setPoints] = useState([]);
   const [play, setPlay] = useState(false);
   const router = useRouter();
+  const [liveRepeat, setLiveRepeat] = useState(false);
 
   const [isSubscribed, setIsSubscribed] = useState(false);
 
@@ -33,6 +34,33 @@ export default function Home({ token, org, url, api }) {
 
   let fluxQueryTTN =
     'from(bucket:"TTN_SailData") |> range(start: -1000d) |> filter(fn: (r) => r["_measurement"] == "sensor_data")';
+
+  let fluxQueryLatest = `from(bucket: "TTN_SailData")
+  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)
+  |> filter(fn: (r) => r["_measurement"] == "sensor_data")
+  |> last()`;
+
+  async function getCurrent(fluxQ) {
+    let data = await queryApi.collectRows(fluxQ);
+    console.log("\nCollect LIVE SUCCESS");
+    data = [...data].sort((a, b) => a._field.localeCompare(b._field));
+    let p = [];
+    setPoints([]);
+
+    let n = {
+      humidity: data[0]._value,
+      lat: data[1]._value,
+      lon: data[2]._value,
+      temperature: data[3]._value,
+      time: data[0]._time,
+      key: 0,
+    };
+
+    p.push(n);
+
+    console.log(p);
+    setPoints(p);
+  }
 
   async function collectRows(fluxQ) {
     let data = await queryApi.collectRows(fluxQ);
@@ -93,6 +121,20 @@ export default function Home({ token, org, url, api }) {
 
   function BtnPressed2() {
     collectRows(fluxQueryTTN);
+  }
+
+  function BtnPressed3() {
+    const timer = setTimeout(() => {
+      getCurrent(fluxQueryLatest);
+    }, 1000);
+    if (liveRepeat == false) {
+      console.log("live enabled");
+      setLiveRepeat(true);
+    } else {
+      clearTimeout(timer);
+      console.log("live stopped");
+      setLiveRepeat(false);
+    }
   }
 
   const handleClick = (e) => {
@@ -163,6 +205,15 @@ export default function Home({ token, org, url, api }) {
                 onClick={BtnPressed2}
               >
                 Route 2
+              </button>
+
+              <button
+                style={{
+                  width: "60%",
+                }}
+                onClick={BtnPressed3}
+              >
+                Live
               </button>
 
               {points.map((point) => {
