@@ -95,6 +95,7 @@ export default function App({ appId, accessKey }) {
           type="button"
           onClick={() => router.push("/menu")}
         >
+          
           Log In
         </button>
 
