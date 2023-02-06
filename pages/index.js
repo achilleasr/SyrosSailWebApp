@@ -4,20 +4,20 @@ import Head from "next/head";
 import styles from "../styles/Index.module.css";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useSelector } from "react-redux";
-import useSWR from "swr";
-import ttn from "ttn";
-import mqtt from "mqtt";
+// import { useSelector } from "react-redux";
+// import useSWR from "swr";
+// import ttn from "ttn";
+// import mqtt from "mqtt";
 
-const fetcher = (url) => fetch(url).then((r) => r.json());
+// const fetcher = (url) => fetch(url).then((r) => r.json());
 
-function Profile() {
-  const { data, error, isLoading } = useSWR("/api/ttn3", fetcher);
+// function Profile() {
+//   const { data, error, isLoading } = useSWR("/api/ttn3", fetcher);
 
-  if (error) return <div>failed to load</div>;
-  if (isLoading) return <div>loading...</div>;
-  return <div>hello {JSON.stringify(data)}!</div>;
-}
+//   if (error) return <div>failed to load</div>;
+//   if (isLoading) return <div>loading...</div>;
+//   return <div>hello {JSON.stringify(data)}!</div>;
+// }
 
 export default function App({ appId, accessKey }) {
   const router = useRouter();
@@ -70,15 +70,7 @@ export default function App({ appId, accessKey }) {
         <title>SAIL APP</title>
       </Head>
       <img src="assets/SplashLogo.png" className={styles.image} />
-      <div className={checked ? styles.title2 : styles.title}>Login</div>
-      <Profile />
-      {/* <input
-        onClick={handleClick}
-        name="fontBox"
-        type="checkbox"
-        id="fontBox"
-        className={styles.checkbox}
-      /> */}
+      <div className={styles.title}>Login</div>
 
       <form action="/menu" method="post">
         <input
@@ -86,7 +78,7 @@ export default function App({ appId, accessKey }) {
           id="username"
           name="username"
           placeholder="Username"
-          className={checked ? styles.input2 : styles.input1}
+          className={styles.input1}
           required
         />
         <input
@@ -94,33 +86,23 @@ export default function App({ appId, accessKey }) {
           id="password"
           name="password"
           placeholder="Password"
-          className={checked ? styles.input2 : styles.input1}
+          className={styles.input1}
           required
         />
-        {/* <button type="submit" className={styles.button}>
-          Log In
-        </button> */}
+
         <button
-          className={checked ? styles.button2 : styles.button}
+          className={styles.button}
           type="button"
           onClick={() => router.push("/menu")}
         >
           Log In
         </button>
-        {/* <div className={styles.button}>
-          <Link href="/menu">Log In</Link>
-        </div> */}
+
       </form>
       <div className={styles.registerWrapper}>
         <div className={styles.noAccount}>Don't have an account?</div>
-        {/* <form action="/loadingscreen" method="post">
-          <button className={styles.button}>Register</button>
-          </form> */}
-        {/* <div className={styles.button}>
-          <Link href="/register">Register</Link>
-        </div> */}
         <button
-          className={checked ? styles.button2 : styles.button}
+          className={styles.button}
           type="button"
           onClick={() => router.push("/register")}
         >
@@ -134,17 +116,20 @@ export default function App({ appId, accessKey }) {
       <style jsx global>{`
         html {
           height: 100%;
-          font-family: "Concert One";
+          font-family: "Comfortaa";
         }
         body {
           height: 100%;
           background: #09a1c8;
           background-attachment: fixed;
-          font-family: "Concert One";
+          font-family: "Comfortaa";
         }
         form {
           display: flex;
-          width: 60%;
+          // width: 60%;
+          text-align: center;
+          justify-content: center;
+          align-items: center;
           flex-direction: column;
         }
 
