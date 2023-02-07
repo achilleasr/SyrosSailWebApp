@@ -5,10 +5,10 @@ import Navbar from "../components/navbar";
 
 export default function Sessions() {
   const { unityProvider } = useUnityContext({
-    loaderUrl: "Build2/Build.loader.js",
-    dataUrl: "Build2/Build.data",
-    frameworkUrl: "Build2/Build.framework.js",
-    codeUrl: "Build2/Build.wasm",
+    loaderUrl: "Build2/build3.loader.js",
+    dataUrl: "Build2/build3.data",
+    frameworkUrl: "Build2/build3.framework.js",
+    codeUrl: "Build2/build3.wasm",
   });
 
   return (
