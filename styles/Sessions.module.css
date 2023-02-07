@@ -40,3 +40,11 @@
   font-size: 24px;
   text-align: center;
 }
+
+
+.backButton{
+  position: absolute;
+  z-index: 3;
+  bottom: 60px;
+  left: 20px;
+}

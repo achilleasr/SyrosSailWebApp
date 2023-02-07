@@ -4,13 +4,12 @@ import React, { useState, useEffect } from "react";
 import { InfluxDB, FluxTableMetaData } from "@influxdata/influxdb-client";
 import ListItem2 from "../components/Point";
 import Map from "../components/Map";
-// import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 export default function Sessions({ token, org, url }) {
   const [points, setPoints] = useState([]);
   const [isOnMap, setIsOnMap] = useState(false);
 
-  // const router = useRouter();
 
   const queryApi = new InfluxDB({ url, token }).getQueryApi(org);
   let fluxQuery =
@@ -83,12 +82,22 @@ export default function Sessions({ token, org, url }) {
     setIsOnMap(true);
   }
 
+  function backPressed() {
+    setIsOnMap(false);
+  }
+
   return (
     <div>
       {isOnMap == true ? (
         <div>
           <div className={styles.wrapper}>
             <Map pointList={points} />
+            <Link className={styles.backButton} href="/sessions"  onClick={backPressed} >
+            <svg width="31" height="30" viewBox="0 0 31 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M13.8438 28.9917L1.19383 16.3417C1.00216 16.15 0.866081 15.9424 0.785581 15.7187C0.706359 15.4951 0.666748 15.2556 0.666748 15C0.666748 14.7444 0.706359 14.5049 0.785581 14.2812C0.866081 14.0576 1.00216 13.85 1.19383 13.6583L13.8438 1.00833C14.1952 0.656939 14.6341 0.47294 15.1606 0.456329C15.6883 0.440996 16.1438 0.624995 16.5272 1.00833C16.9105 1.35972 17.1105 1.79863 17.1271 2.32508C17.1424 2.8528 16.9584 3.30833 16.5751 3.69166L7.18341 13.0833H28.6022C29.1452 13.0833 29.6007 13.2667 29.9688 13.6334C30.3355 14.0014 30.5188 14.4569 30.5188 15C30.5188 15.5431 30.3355 15.9979 29.9688 16.3647C29.6007 16.7327 29.1452 16.9167 28.6022 16.9167H7.18341L16.5751 26.3083C16.9265 26.6597 17.1105 27.1069 17.1271 27.65C17.1424 28.1931 16.9584 28.6403 16.5751 28.9917C16.2237 29.375 15.7765 29.5667 15.2334 29.5667C14.6904 29.5667 14.2272 29.375 13.8438 28.9917Z" fill="black"/>
+</svg>
+</Link>
+
           </div>
         </div>
       ) : (
