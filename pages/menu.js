@@ -5,7 +5,6 @@ import { useRouter } from "next/router";
 import { InfluxDB, FluxTableMetaData } from "@influxdata/influxdb-client";
 import Navbar from "../components/navbar";
 import Map from "../components/Map";
-// import ListItem2 from "../components/Point";
 
 export default function Menu({ token, org, url }) {
   const [points, setPoints] = useState([]);
@@ -15,11 +14,6 @@ export default function Menu({ token, org, url }) {
   const [recording, setRecording] = useState(false);
 
   const queryApi = new InfluxDB({ url, token }).getQueryApi(org);
-  // let fluxQuery =
-  //   'from(bucket:"SailData") |> range(start: -1000d) |> filter(fn: (r) => r._measurement == "m1")';
-
-  // let fluxQueryTTN =
-  //   'from(bucket:"TTN_SailData") |> range(start: -1000d) |> filter(fn: (r) => r["_measurement"] == "sensor_data")';
 
   let fluxQueryLatest = `from(bucket: "TTN_SailData")
   |> range(start: -30m)
@@ -35,7 +29,6 @@ export default function Menu({ token, org, url }) {
   async function getCurrent(fluxQ) {
     let data = await queryApi.collectRows(fluxQ);
     let diff = await queryApi.collectRows(fluxQueryDifference);
-    // console.log("\nCollect LIVE SUCCESS");
     data = [...data].sort((a, b) => a._field.localeCompare(b._field));
     diff = [...diff].sort((a, b) => a._field.localeCompare(b._field));
     let p = [];
@@ -152,18 +145,6 @@ export default function Menu({ token, org, url }) {
       </Head>
       <main>
         <Map pointList={points} play={play} lastSpeed={lastSpeed} />
-        {/* <div className={styles.buttons}>
-          <center style={{ padding: "20px 0px" }}>
-            <button
-              style={{
-                width: "60%",
-              }}
-              onClick={BtnPressed3}
-            >
-              Live
-            </button>
-          </center>
-        </div> */}
 
         <div onClick={BtnPressedRecord} className={styles.recordButton}>
           {recording == false ? (
@@ -206,20 +187,12 @@ export default function Menu({ token, org, url }) {
 
       <style jsx global>{`
         html {
-          // height: 100%;
           width: 100%;
         }
         body {
           height: 100%;
           width: 100%;
           margin: 0px;
-          // background: linear-gradient(
-          //   0deg,
-          //   rgba(40, 151, 222, 1) 0%,
-          //   rgba(0, 212, 255, 1) 100%
-          // );
-          //   background-attachment: fixed;
-          //   font-family: ConcertOne;
         }
 
         button {
@@ -227,7 +200,6 @@ export default function Menu({ token, org, url }) {
           height: 2rem;
           border: 2px solid white;
           margin: 2px;
-          // position: absolute;
         }
       `}</style>
     </div>

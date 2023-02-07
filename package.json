@@ -14,18 +14,12 @@
     "leaflet-defaulticon-compatibility": "^0.1.1",
     "leaflet-rotatedmarker": "^0.2.0",
     "lerp": "^1.0.3",
-    "mqtt": "^4.3.7",
     "next": "latest",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-leaflet": "^4.2.0",
     "react-leaflet-tracking-marker": "^1.0.16",
-    "react-redux": "^8.0.5",
-    "react-router-dom": "^6.6.1",
-    "react-unity-webgl": "^9.3.0",
-    "redux": "^4.2.0",
-    "swr": "^2.0.0",
-    "ttn": "^1.3.2"
+    "react-router-dom": "^6.6.1"
   },
   "devDependencies": {
     "@types/node": "18.11.18",

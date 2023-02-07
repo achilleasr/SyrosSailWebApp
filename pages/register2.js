@@ -4,8 +4,8 @@ import styles from "../styles/Register2.module.css";
 import { useRouter } from "next/router";
 
 const submitContact = async (event) => {
-  event.preventDefault();
-  alert(`So your name is ${event.target.username.value}?`);
+  // event.preventDefault();
+  // alert(`So your name is ${event.target.username.value}?`);
 };
 
 export default function Register2() {
@@ -21,27 +21,27 @@ export default function Register2() {
       <img src="assets/SplashLogo.png" className={styles.image} />
       <div className={styles.title}>New {name} Account</div>
 
-      <form action="/menu" onSubmit={submitContact}>
+      <form action="/accountCreated" onSubmit={submitContact}>
         <input
           type="text"
           id="username"
           name="username"
           placeholder="Username"
-          required
+          // required
         />
         <input
           type="password"
           id="password"
           name="password"
           placeholder="Password"
-          required
+          // required
         />
         <input
           type="email"
           id="mail"
           name="mail"
           placeholder="YourEmail@gmail.com"
-          required
+          // required
         />
         <button type="submit" className={styles.button}>
           Create Account

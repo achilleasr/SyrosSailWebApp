@@ -39,7 +39,6 @@ export default function Register() {
             href={{
               pathname: "/register2",
               query: { name: "Viewer" },
-              state: { nooma: "pin" },
             }}  
           >
             VIEWER

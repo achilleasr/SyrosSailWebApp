@@ -3,14 +3,21 @@
     src: url("/fonts/ConcertOne-Regular.ttf");
   }
   
+
+  @font-face {
+    font-family: 'Comfortaa';
+    font-style: normal;
+    font-weight: 400;
+    src: url('/fonts/Comfortaa.ttf');
+  }
+
   .title {
     font-size: 55px;
     margin-top: 6rem;
     text-align: left;
     width: 70%;
-    font-family: ConcertOne;
+    font-family: 'Comfortaa';
     color: #FF8A00;
-    /* text-shadow: 2px 2px 3px rgb(64, 64, 64); */
   }
   
 
@@ -20,31 +27,33 @@
     width: 100%;
     display: flex;
     flex-flow: row wrap;
+    text-align: center;
     justify-content: space-evenly;
   }
 
   .buttone {
-    border: 0px;
+    /* border: 0px; */
     margin-left: 40px;
     margin-right:40px;
     margin-top: 1.4rem;
     height: 3rem;
+    padding: 10px 0;
     width: 170px;
-    /* text-align: center; */
-    font-size: 34px;
-    border-radius: 80px;
-    font-family: ConcertOne;
+    font-size: 28px;
+    border-radius: 40px;
+    font-family: 'Comfortaa';
     border: #57c1fe71 solid 3px;
     color: #FF8A00;
     background: white;
-    /* box-shadow: 0 0 15px 4px rgba(0, 0, 0, 0.16); */
+    /* border: #FF8A00 solid 3px; */
+    text-align: center;
     transition: font-size 0.1s ease-out 100ms ,  box-shadow 0.4s ease-out 100ms;
   }
   
   
   
   .buttone:hover{
-    font-size: 38px;
+    font-size: 30px;
     box-shadow: 0 0 15px 4px rgba(255, 255, 255, 0.16);
   }
   

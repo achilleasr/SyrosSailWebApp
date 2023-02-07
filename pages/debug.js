@@ -6,7 +6,6 @@ import { InfluxDB, FluxTableMetaData } from "@influxdata/influxdb-client";
 import ListItem1 from "../components/List";
 import ListItem2 from "../components/Point";
 import Map from "../components/Map";
-// import Map2 from "../components/Map2";
 import Image from "next/image";
 import { forwardRef, useImperativeHandle, useRef } from "react";
 import { useRouter } from "next/navigation";
@@ -17,17 +16,6 @@ export default function Home({ token, org, url, api }) {
   const [play, setPlay] = useState(false);
   const router = useRouter();
   const [liveRepeat, setLiveRepeat] = useState(false);
-
-  const [isSubscribed, setIsSubscribed] = useState(false);
-
-  const handleChange = (event) => {
-    if (event.target.checked) {
-      console.log("✅ Checkbox is checked");
-    } else {
-      console.log("⛔️ Checkbox is NOT checked");
-    }
-    setIsSubscribed((current) => !current);
-  };
 
   const queryApi = new InfluxDB({ url, token }).getQueryApi(org);
   let fluxQuery =
@@ -50,15 +38,12 @@ export default function Home({ token, org, url, api }) {
   async function getCurrent(fluxQ) {
     let data = await queryApi.collectRows(fluxQ);
     let diff = await queryApi.collectRows(fluxQueryDifference);
-    // console.log("\nCollect LIVE SUCCESS");
     data = [...data].sort((a, b) => a._field.localeCompare(b._field));
     diff = [...diff].sort((a, b) => a._field.localeCompare(b._field));
     let p = [];
     let speed = {};
     setPoints([]);
     setLastSpeed({});
-
-    // console.log(data.length);
     
     if (data.length > 3) {
       let n = {
@@ -87,7 +72,6 @@ export default function Home({ token, org, url, api }) {
   }
   async function collectRows(fluxQ) {
     let data = await queryApi.collectRows(fluxQ);
-    //data.forEach((x) => console.log(JSON.stringify(x)));
     console.log("\nCollect ROWS SUCCESS");
 
     data = [...data].sort((a, b) => a._field.localeCompare(b._field));
@@ -164,16 +148,7 @@ export default function Home({ token, org, url, api }) {
     }
   }
 
-  const handleClick = (e) => {
-    e.preventDefault();
-    router.push(
-      {
-        pathname: "/nextpage",
-        query: { noom: "NOOMMMM" },
-      },
-      "/nextpage"
-    );
-  };
+  
 
   return (
     <div className={styles.container}>
@@ -183,25 +158,7 @@ export default function Home({ token, org, url, api }) {
       </Head>
 
       <main>
-        {/* <h1 className={styles.title}>
-          INFLUXDB Cloud με next.js
-          <a href="/d">
-            <img className={styles.danibtn} src="/assets/d.jpg" />
-          </a>
-        </h1>
-
-        <a href="/nextpage"> NNNNNN </a>
-        <button type="button" onClick={handleClick}>
-          NextPage
-        </button> */}
-        {/* 
-        <h3>3D <input type="checkbox" id="myCheck" onChange={handleChange}/> </h3> 
-        {isSubscribed == true && (
-
-          // <Map2 api={api} pointList={points}/>
-
-        ) }
-         */}
+        
         <div className={styles.wrapper}>
           <Map pointList={points} play={play} lastSpeed={lastSpeed} />
           <div className={styles.buttons}>
@@ -267,7 +224,6 @@ export default function Home({ token, org, url, api }) {
       <style jsx global>{`
         html {
           width: 80%;
-          // background-image: url("assets/ocean-bg.jpg");
           height: 100%;
           background: linear-gradient(
             0deg,
@@ -295,14 +251,12 @@ export async function getServerSideProps() {
   const org1 = process.env.INFLUX_ORG;
   const token1 = process.env.INFLUX_TOKEN;
   const url1 = process.env.INFLUX_URL;
-  // const api1 = process.env.WRLD_TOKEN;
 
   return {
     props: {
       org: org1,
       token: token1,
       url: url1,
-      // api: api1,
     },
   };
 }

@@ -1,68 +1,14 @@
 import React, { useState, useEffect } from "react";
 import Head from "next/head";
-// import "@fontsource/concert-one";
+
 import styles from "../styles/Index.module.css";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-// import { useSelector } from "react-redux";
-// import useSWR from "swr";
-// import ttn from "ttn";
-// import mqtt from "mqtt";
 
-// const fetcher = (url) => fetch(url).then((r) => r.json());
-
-// function Profile() {
-//   const { data, error, isLoading } = useSWR("/api/ttn3", fetcher);
-
-//   if (error) return <div>failed to load</div>;
-//   if (isLoading) return <div>loading...</div>;
-//   return <div>hello {JSON.stringify(data)}!</div>;
-// }
 
 export default function App({ appId, accessKey }) {
   const router = useRouter();
-  const [checked, setChecked] = useState(false);
-  const handleClick = () => {
-    setChecked(!checked);
-  };
 
-  // const client = mqtt.connect(
-  //   "wss://" +
-  //     appId +
-  //     ":" +
-  //     accessKey +
-  //     "@eu1.cloud.thethings.network:8883"
-  // );
-  // client.subscribe("#");
-  // client.on("message", (topic, message) => {
-  //   console.log(`Received message on topic ${topic}: ${message.toString()}`);
-  // });
-  // const client = new ttn.Client(
-  //   'staging',
-  //   appId,
-  //   accessKey
-  // );
-
-  // client.on("uplink", (devId, payload) => {
-  //   console.log(payload);
-  // });
-
-  // client.on('error', (err) => {
-  //   console.log(err);
-  // });
-
-  // client.on('connect', (connack) => {
-  //   console.log('Connect:', connack);
-  // });
-
-  // const requestBody = useSelector((state) => state.requestBody);
-  // console.log(requestBody);
-
-  // useEffect(() => {
-  //   if (requestBody) {
-  //     console.log(requestBody);
-  //   }
-  // }, [requestBody]);
 
   return (
     <div className={styles.wrapper}>
@@ -116,7 +62,6 @@ export default function App({ appId, accessKey }) {
 
       <style jsx global>{`
         html {
-          // height: 100%;
           font-family: "Comfortaa";
         }
         body {
