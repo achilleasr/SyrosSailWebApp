@@ -173,7 +173,8 @@ function Map({ pointList, play, lastSpeed }) {
           // url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           // url="https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png"
 
-          url="https://tileserver.memomaps.de/tilegen/{z}/{x}/{y}.png"
+          // url="https://tileserver.memomaps.de/tilegen/{z}/{x}/{y}.png"
+          url="https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png"
         />
         {pointList.length > 1 && (
           <Marker

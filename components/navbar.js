@@ -6,7 +6,7 @@ const navbar = () => {
   return (
     <div className={styles.mainnav}>
       <div className={styles.item}>
-          <Link className={styles.navLink} href="/">
+          <Link className={styles.navLink} href="/sessions">
             <svg
               width="36"
               height="36"

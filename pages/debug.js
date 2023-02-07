@@ -266,7 +266,7 @@ export default function Home({ token, org, url, api }) {
 
       <style jsx global>{`
         html {
-          width: 100%;
+          width: 80%;
           // background-image: url("assets/ocean-bg.jpg");
           height: 100%;
           background: linear-gradient(

@@ -1,7 +1,8 @@
 .wrapper {
-  width: 100%;
-  /* border: 2px solid red; */
-  height: 100%;
+  width: 400px;
+  border: 2px solid red;
+  border-radius: 20px;
+  height: 300px;
 }
 
 .buttons {

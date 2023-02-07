@@ -165,11 +165,11 @@ export default function Menu({ token, org, url }) {
           height: 100%;
           width: 100%;
           margin: 0px;
-          background: linear-gradient(
-            0deg,
-            rgba(40, 151, 222, 1) 0%,
-            rgba(0, 212, 255, 1) 100%
-          );
+          // background: linear-gradient(
+          //   0deg,
+          //   rgba(40, 151, 222, 1) 0%,
+          //   rgba(0, 212, 255, 1) 100%
+          // );
         //   background-attachment: fixed;
         //   font-family: ConcertOne;
         }
