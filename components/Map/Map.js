@@ -150,7 +150,7 @@ function Map({ pointList, play, lastSpeed }) {
   let boatIcon1 = new LeafIcon2({ iconUrl: "assets/sailboat1tiny.png" });
   let boatIcon2 = new LeafIcon4({ iconUrl: "assets/boat2.png" });
   let boatIcon3 = new LeafIcon4({ iconUrl: "assets/boat3w.png" });
-  const polyOptions = { color: "white", weight: 0.07 };
+  const polyOptions = { color: "black", weight: 0.07 };
   const polyOptions2 = { color: "red", weight: 10.17 };
   //console.log(ler);
 
