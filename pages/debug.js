@@ -54,26 +54,30 @@ export default function Home({ token, org, url, api }) {
     data = [...data].sort((a, b) => a._field.localeCompare(b._field));
     diff = [...diff].sort((a, b) => a._field.localeCompare(b._field));
     let p = [];
-    let speed = {}
+    let speed = {};
     setPoints([]);
     setLastSpeed({});
 
-    let n = {
-      humidity: data[0]._value,
-      lat: data[1]._value,
-      lon: data[2]._value,
-      temperature: data[3]._value,
-      time: data[0]._time,
-      key: 0,
-    };
-    let s = {
-      lat: data[1]._value+diff[1]._value,
-      lon: data[2]._value+diff[2]._value,
-    }
+    // console.log(data.length);
+    
+    if (data.length > 3) {
+      let n = {
+        humidity: data[0]._value,
+        lat: data[1]._value,
+        lon: data[2]._value,
+        temperature: data[3]._value,
+        time: data[0]._time,
+        key: 0,
+      };
+      let s = {
+        lat: data[1]._value + diff[1]._value,
+        lon: data[2]._value + diff[2]._value,
+      };
 
-    p.push(n);
-    setPoints(p);
-    setLastSpeed(s);
+      p.push(n);
+      setPoints(p);
+      setLastSpeed(s);
+    }
   }
 
   if (liveRepeat) {
@@ -116,21 +120,25 @@ export default function Home({ token, org, url, api }) {
       setPoints(p);
     } else {
       let ptime = 0;
-      for (let i = 0; i < data.length; i += 4) {
-        let n = {
-          humidity: data[i]._value,
-          lat: data[i + 1]._value,
-          lon: data[i + 2]._value,
-          temperature: data[i + 3]._value,
-          time: data[i]._time,
-          key: i / 4,
-        };
+      if (data.length > 3) {
+        for (let i = 0; i < data.length; i += 4) {
+          let n = {
+            humidity: data[i]._value,
+            lat: data[i + 1]._value,
+            lon: data[i + 2]._value,
+            temperature: data[i + 3]._value,
+            time: data[i]._time,
+            key: i / 4,
+          };
 
-        p.push(n);
-      }
+          p.push(n);
+        }
+      
 
       console.log(p);
       setPoints(p);
+
+    }
     }
   }
 
@@ -195,7 +203,7 @@ export default function Home({ token, org, url, api }) {
         ) }
          */}
         <div className={styles.wrapper}>
-          <Map pointList={points} play={play} lastSpeed={lastSpeed}/>
+          <Map pointList={points} play={play} lastSpeed={lastSpeed} />
           <div className={styles.buttons}>
             <center style={{ padding: "20px 0px" }}>
               <button

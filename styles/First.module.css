@@ -1,6 +1,6 @@
 .container {
-  min-height: 100vh;
-  padding: 0 0.5rem;
+  /* min-height: 100vh; */
+  /* padding: 0 0.5rem; */
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -33,13 +33,23 @@
 }
 
 .map {
-  width: 90%;
-  height: 100%;
-  height: 33rem;
+  width: 100%;
+  height: 100vh;
+  /* height: 33rem; */
   /* border: 2px solid #1641de78; */
-  /* z-index: -10; */
-  border-radius: 30px;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  z-index: 0;
+  /* border-radius: 30px; */
+  /* box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); */
+}
+
+
+.mapContainer{
+  /* border: #000000 solid 3px; */
+  width: 100%;
+  height: 100vh;
+  position: absolute;
+  top: 0px;
+  left: 0px;
 }
 
 .danibtn {
@@ -54,4 +64,17 @@
 .tooltipNames {
   display: inline;
   font-size: 16px;
+}
+
+.buttons {
+  position: absolute;
+  top: 10px;
+  width: 35%;
+}
+
+.buttons {
+  position: absolute;
+  z-index: 3;
+  top: 10px;
+  width: 35%;
 }

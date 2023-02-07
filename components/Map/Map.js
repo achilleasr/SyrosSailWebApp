@@ -57,7 +57,7 @@ function Map({ pointList, play, lastSpeed }) {
 
   const [ler, setLer] = useState(0);
   const [ler2, setLer2] = useState(0);
-
+  // const mapRef = useRef(null);
   let poly = [];
   if (pointList.length > 0) {
     pointList.forEach((point) => {
@@ -155,7 +155,7 @@ function Map({ pointList, play, lastSpeed }) {
   //console.log(ler);
 
   return (
-    <center>
+    <center className={style.mapContainer}>
       <MapContainer
         className={style.map}
         center={[37.389571, 24.881624]}
@@ -237,6 +237,7 @@ function Map({ pointList, play, lastSpeed }) {
               icon={boatIcon3}
               rotationAngle={heading2}
               rotationOrigin="center"
+              className = {style.tooltip}
             >
               <Tooltip
                 direction="bottom"
