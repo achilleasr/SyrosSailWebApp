@@ -34,7 +34,7 @@
 
 .map {
   width: 100%;
-  height: 100vh;
+  min-height: 100vh;
   /* height: 33rem; */
   /* border: 2px solid #1641de78; */
   z-index: 0;
