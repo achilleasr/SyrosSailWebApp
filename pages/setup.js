@@ -1,18 +1,17 @@
-import styles from "../styles/Sessions.module.css";
+import styles from "../styles/Setup.module.css";
 import Navbar from "../components/navbar";
 
-
-export default function Sessions() {
-    return (
-        <div>
+export default function Setup() {
+  return (
+    <div>
         <center className={styles.title}>
-      Sessions</center>
-      <Navbar active="sessions" />
+      Setup</center>
+      <Navbar active="setup" />
       <style jsx global>{`
         body {
           background: #09a1c8;
         }
       `}</style>
     </div>
-    );
-  }
+  );
+}

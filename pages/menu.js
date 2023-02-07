@@ -11,7 +11,8 @@ export default function Menu({ token, org, url }) {
   const [points, setPoints] = useState([]);
   const [lastSpeed, setLastSpeed] = useState({});
   const [play, setPlay] = useState(false);
-  const [liveRepeat, setLiveRepeat] = useState(false);
+  const [liveRepeat, setLiveRepeat] = useState(true);
+  const [recording, setRecording] = useState(false);
 
   const queryApi = new InfluxDB({ url, token }).getQueryApi(org);
   // let fluxQuery =
@@ -134,31 +135,78 @@ export default function Menu({ token, org, url }) {
     }
   }
 
+  function BtnPressedRecord() {
+    if (recording == false) {
+      console.log("recording start");
+      setRecording(true);
+    } else {
+      console.log("recording stopped");
+      setRecording(false);
+    }
+  }
+
   return (
     <div>
       <Head>
         <title>SAIL APP</title>
       </Head>
       <main>
-          <Map pointList={points} play={play} lastSpeed={lastSpeed} />
-          <div className={styles.buttons}>
-            <center style={{ padding: "20px 0px" }}>
-              <button
-                style={{
-                  width: "60%",
-                }}
-                onClick={BtnPressed3}>
-                  Live
-              </button>
-            </center>
-          </div>
+        <Map pointList={points} play={play} lastSpeed={lastSpeed} />
+        {/* <div className={styles.buttons}>
+          <center style={{ padding: "20px 0px" }}>
+            <button
+              style={{
+                width: "60%",
+              }}
+              onClick={BtnPressed3}
+            >
+              Live
+            </button>
+          </center>
+        </div> */}
+
+        <div onClick={BtnPressedRecord} className={styles.recordButton}>
+          {recording == false ? (
+            <svg
+              width="68"
+              height="68"
+              viewBox="0 0 68 68"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <circle
+                cx="34"
+                cy="34"
+                r="32"
+                fill="#F05757"
+                stroke="#BA4040"
+                strokeWidth="4"
+              />
+            </svg>
+          ) : (
+            <svg
+              width="64"
+              height="64"
+              viewBox="0 0 64 64"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M50 3.5H14C8.20104 3.5 3.50003 8.20101 3.50003 14V50C3.50003 55.799 8.20104 60.5 14 60.5H50C55.799 60.5 60.5 55.799 60.5 50V14C60.5 8.20101 55.799 3.5 50 3.5Z"
+                fill="#5C5C5C"
+                stroke="black"
+                strokeWidth="7"
+              />
+            </svg>
+          )}
+        </div>
       </main>
 
-      <Navbar />
+      <Navbar active="live"/>
 
       <style jsx global>{`
         html {
-          height: 100%;
+          // height: 100%;
           width: 100%;
         }
         body {
@@ -170,8 +218,8 @@ export default function Menu({ token, org, url }) {
           //   rgba(40, 151, 222, 1) 0%,
           //   rgba(0, 212, 255, 1) 100%
           // );
-        //   background-attachment: fixed;
-        //   font-family: ConcertOne;
+          //   background-attachment: fixed;
+          //   font-family: ConcertOne;
         }
 
         button {

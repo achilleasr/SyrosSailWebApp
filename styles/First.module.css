@@ -78,3 +78,13 @@
   top: 10px;
   width: 35%;
 }
+
+.recordButton{
+  /* border: black solid 3px; */
+  position: absolute;
+  z-index: 3;
+  bottom: 60px;
+  margin-left: 40%;
+  margin-right: 40%;
+  /* width: 35%; */
+}

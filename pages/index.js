@@ -116,7 +116,7 @@ export default function App({ appId, accessKey }) {
 
       <style jsx global>{`
         html {
-          height: 100%;
+          // height: 100%;
           font-family: "Comfortaa";
         }
         body {

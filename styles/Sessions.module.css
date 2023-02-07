@@ -1,0 +1,13 @@
+
+@font-face {
+    font-family: 'Comfortaa';
+    font-style: normal;
+    font-weight: 400;
+    src: url('/fonts/Comfortaa.ttf');
+  }
+
+.title{
+    font-family: "Comfortaa";
+    color: aliceblue;
+    font-size: 24px;
+}
