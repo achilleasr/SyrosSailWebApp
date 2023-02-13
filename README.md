@@ -2,9 +2,9 @@
 Sailing Web App with Next.js! </h2>
 <div><img src="https://user-images.githubusercontent.com/72945457/218341883-77a7238a-916b-4569-815c-d64ece3bb52b.png" data-canonical-src="https://user-images.githubusercontent.com/72945457/218341883-77a7238a-916b-4569-815c-d64ece3bb52b.png" height="70" />
 <img src="https://user-images.githubusercontent.com/72945457/218341884-54fc4232-9910-4958-9a67-6e5ad8757c69.png" data-canonical-src="https://user-images.githubusercontent.com/72945457/218341884-54fc4232-9910-4958-9a67-6e5ad8757c69.png" height="50" />
-<img src="https://user-images.githubusercontent.com/72945457/218341828-3c991013-abda-4883-a186-810f5a9e5a5e.png" data-canonical-src="https://user-images.githubusercontent.com/72945457/218341828-3c991013-abda-4883-a186-810f5a9e5a5e.png" height="50" />
+<img src="https://user-images.githubusercontent.com/72945457/218341828-3c991013-abda-4883-a186-810f5a9e5a5e.png" data-canonical-src="https://user-images.githubusercontent.com/72945457/218341828-3c991013-abda-4883-a186-810f5a9e5a5e.png" height="60" /><img src="https://user-images.githubusercontent.com/72945457/218341983-98a9da5b-4a8b-4c3a-b954-fd029d2a49d3.png" data-canonical-src="https://user-images.githubusercontent.com/72945457/218341983-98a9da5b-4a8b-4c3a-b954-fd029d2a49d3.png" height="50" />
 <img src="https://user-images.githubusercontent.com/72945457/218341881-68f9ad84-19e4-4407-87d9-670bb16dfc10.png" data-canonical-src="https://user-images.githubusercontent.com/72945457/218341881-68f9ad84-19e4-4407-87d9-670bb16dfc10.png" height="40" />
-<img src="https://user-images.githubusercontent.com/72945457/218341983-98a9da5b-4a8b-4c3a-b954-fd029d2a49d3.png" data-canonical-src="https://user-images.githubusercontent.com/72945457/218341983-98a9da5b-4a8b-4c3a-b954-fd029d2a49d3.png" height="50" />
+
 </div>
 <br>
 This is a university project web application using InfluxDB Cloud for its database Leaflet for React for visualizing data. <br>The purpose of this prototype was to show live data from devices with LoRaWAN connected to The Things Network as well as data from older sessions. There is page navigation through the bottom navbar to:  Sessions, Live, Setup. 
